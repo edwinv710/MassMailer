@@ -1,0 +1,7 @@
+<h1>Mass Mailer Homepage</h1>
+<br>
+
+<%= form_tag('/hompage/send_mail') do |f| %>
+<p><%= f.select(:email_name, Email.all.map {|p| [p.emailAddress,p.id]}, :prompt => "Select Email") %></p>
+<p><%= f.select(:meassage_label, EmailMessage.all.map {|p| [p.label,p.id]}, :prompt => "Select Message") %> </p>
+<% end %>

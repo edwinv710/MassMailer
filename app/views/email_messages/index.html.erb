@@ -1,0 +1,28 @@
+<h1>All Messages</h1>
+
+<table id="messages" class="display">
+<thead>  
+  <tr>
+    <th>Name</th>
+    <th>Subject</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @email_messages.each do |email_message| %>
+  <tr>
+    <td> <%= email_message.label %> </td>
+    <td> <%= email_message.subject %> </td>
+    <td><%= link_to 'Show', email_message %></td>
+    <td><%= link_to 'Edit HTML', "/editor/messagehtml?id=#{email_message.id}", data: {save_url: update_html_email_message_path(email_message)}%></td>
+    <td><%= link_to 'Destroy', email_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Email message', new_email_message_path %>

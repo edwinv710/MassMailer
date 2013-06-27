@@ -1,0 +1,29 @@
+<h1>All Mailing List</h1>
+
+<table id="mailing" class="display">
+  <thead>
+     <tr>
+      <th>Name</th>
+      <th>Size</th>
+      <th></th>
+      <th></th>
+    </tr> 
+  </thead>
+  
+<tbody>
+  <% @mailing_lists.each do |mailing_list| %>
+    <tr>
+      <td><%= link_to mailing_list.name, mailing_list%></td>
+      <td><%= mailing_list.emails.size %></td>
+      <td><%= link_to 'Edit', edit_mailing_list_path(mailing_list) %></td>
+      <td><%= link_to 'Destroy', mailing_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</tbody>
+
+
+</table>
+
+<br />
+
+<%= link_to 'New Mailing list', new_mailing_list_path %>

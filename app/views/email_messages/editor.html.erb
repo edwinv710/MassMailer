@@ -1,0 +1,13 @@
+
+<% if !@email_message.html? %>
+	<div id="primary" data-mercury="full">
+		<p> click here to edit </p>
+	</div>
+<% else %>
+	<div id="primary" data-mercury="full">
+		<%= raw @email_message.html %>
+	</div>
+<%end%>
+<p>
+	<%= link_to "Edit Page", "/editor" + request.path, id: "edit_link", data: { save_url: update_html_email_message_path(@email_message)} %>
+</p>

@@ -1,0 +1,34 @@
+<h1>Servers</h1>
+
+<table id="servers" class="display">
+
+<thead>
+    <tr>
+    <th>User name</th>
+    <th>Address</th>
+    <th>Port</th>
+    <th>Authentication</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    </tr>
+</thead>
+<tbody>
+    <% @servers.each do |server| %>
+    <tr>
+        <td><%= server.user_name %></td>
+        <td><%= server.address %></td>
+        <td><%= server.port %></td>
+        <td><%= server.authentication %></td>
+        <td><%= link_to 'Show', server %></td>
+        <td><%= link_to 'Edit', edit_server_path(server) %></td>
+        <td><%= link_to 'Destroy', server, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+</tbody>  
+
+</table>
+
+<br />
+
+<%= link_to 'Add Server', new_server_path %>

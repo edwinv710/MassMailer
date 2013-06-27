@@ -1,0 +1,25 @@
+<h1>  Listing all Email Sent</h1>
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Email message</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @email_submissions.each do |email_submission| %>
+  <tr>
+    <td><%= email_submission.email_id %></td>
+    <td><%= email_submission.email_message_id %></td>
+    <td><%= link_to 'Show', email_submission %></td>
+    <td><%= link_to 'Edit', edit_email_submission_path(email_submission) %></td>
+    <td><%= link_to 'Destroy', email_submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Email submission', new_email_submission_path %>

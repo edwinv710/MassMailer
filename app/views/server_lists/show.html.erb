@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @server_list.name %>
+  <b>Servers:</b>
+  <%= @server_list.servers.each do |s| %>
+  <%= s.name %>
+  <%end%>
+</p>
+
+
+<%= link_to 'Edit', edit_server_list_path(@server_list) %> |
+<%= link_to 'Back', server_lists_path %>

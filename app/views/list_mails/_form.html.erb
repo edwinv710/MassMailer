@@ -1,0 +1,10 @@
+<%= simple_form_for @list_mail do |f| %>
+<%= f.label "Server List:" %>
+<%= f.collection_select(:server_list_id, ServerList.all, :id, :name )%>
+<%= f.label "Mailing List:" %>
+<%= f.collection_select(:mailing_list_id, MailingList.all, :id, :name) %>
+<%= f.label "Messsage:" %>
+<%= f.collection_select(:email_message_id, EmailMessage.all, :id, :label) %>
+<%= f.input :priority, label: "Priority: " %>
+<%= f.button :submit, "Send Email" %>
+<% end %>

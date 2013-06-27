@@ -1,0 +1,21 @@
+<h1>Listing list_mails</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @list_mails.each do |list_mail| %>
+  <tr>
+    <td><%= link_to 'Show', list_mail %></td>
+    <td><%= link_to 'Edit', edit_list_mail_path(list_mail) %></td>
+    <td><%= link_to 'Destroy', list_mail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New List mail', new_list_mail_path %>

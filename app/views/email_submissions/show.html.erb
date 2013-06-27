@@ -1,0 +1,17 @@
+<h1>Show an Email Sent</h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Email:</b>
+  <%= @email_submission.email_id %>
+</p>
+
+<p>
+  <b>Email message:</b>
+  <%= @email_submission.email_message_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_email_submission_path(@email_submission) %> |
+<%= link_to 'Back', email_submissions_path %>

@@ -1,0 +1,5 @@
+<%= simple_form_for @email_message do |f| %>
+	<%= f.input :label, label: "Name:" %>
+	<%= f.input :subject, label: "Subject" %>
+	<%= f.button :submit, "Create Email" %>
+<% end %>

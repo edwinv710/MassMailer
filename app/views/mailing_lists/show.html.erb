@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @mailing_list.name %>
+</p>
+
+
+<%= form_tag delete_many_emails_path do %>
+<table id="emails" class="display">
+  <thead>
+  <tr>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody><% @mailing_list.emails.each do |email| %>
+  <tr>
+    <%= hidden_field_tag :list_id, @mailing_list.id %>
+    <td><%= email.emailAddress %></td>
+    <td><%= link_to 'Show', email %></td>
+    <td><%= link_to 'Edit', edit_email_path(email) %></td>
+    <td><%= link_to 'Remove', email, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', email, method: :delete, data: { confirm: 'Are you sure?' } %> <%=check_box_tag "email_ids[]", email.id %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<%= submit_tag "Discontinue Checked" %>
+<% end %>
+
+  <%= form_tag import_emails_path(:list_id => @mailing_list.id), multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+
+
+
+<%= link_to 'Edit', edit_mailing_list_path(@mailing_list) %> |
+<%= link_to 'Back', mailing_lists_path %>
