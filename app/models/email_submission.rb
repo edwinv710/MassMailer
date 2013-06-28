@@ -4,4 +4,8 @@ class EmailSubmission < ActiveRecord::Base
   has_one :email_message
   has_one :server
   
+  def deliver(server, email, message)
+  	UserMailer.send_email(server, email, message).deliver
+  end
+  
 end

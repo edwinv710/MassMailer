@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @mailing_list.name %>
+  <h3><%= @mailing_list.name %></h3>
 </p>
 
 
@@ -29,16 +28,21 @@
 <% end %>
 </tbody>
 </table>
-
-<%= submit_tag "Discontinue Checked" %>
+<br>
+<%= submit_tag "Delete" %>
 <% end %>
 
-  <%= form_tag import_emails_path(:list_id => @mailing_list.id), multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
+<h5>Import (XML and CSV)</h5>
+  
+<%= form_tag import_emails_path(:list_id => @mailing_list.id), multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
 
-
+<p>
+  Download:
+  <%= link_to "CSV", mailing_list_path(format: "csv") %>
+</p>
 
 <%= link_to 'Edit', edit_mailing_list_path(@mailing_list) %> |
 <%= link_to 'Back', mailing_lists_path %>

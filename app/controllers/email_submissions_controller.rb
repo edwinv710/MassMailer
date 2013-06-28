@@ -50,9 +50,9 @@ class EmailSubmissionsController < ApplicationController
 
     respond_to do |format|
       if @email_submission.save
-        UserMailer.send_email(server, email, message).deliver
-        format.html { redirect_to @email_submission, notice: 'Email submission was successfully sent.' }
-        format.json { render json: @email_submission, status: :created, location: @email_submission }
+        @email_submission.deliver(server, email, message)
+        format.html { redirect_to @email_submissions, notice: 'Email submission was successfully sent.' }
+        format.json { render json: @email_submissions, status: :created, location: @email_submission }
       else
         format.html { render action: "new" }
         format.json { render json: @email_submission.errors, status: :unprocessable_entity }

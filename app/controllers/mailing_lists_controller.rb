@@ -7,6 +7,7 @@ class MailingListsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @mailing_lists }
+      
     end
   end
 
@@ -18,6 +19,7 @@ class MailingListsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @mailing_list }
+      format.csv { render :text => @mailing_list.to_csv }
     end
   end
 
@@ -80,4 +82,5 @@ class MailingListsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 end
