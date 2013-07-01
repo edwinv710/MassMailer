@@ -15,9 +15,9 @@ Devise.setup do |config|
   # available as additional gems.
   require 'devise/orm/active_record'
 
-  config.authentication_keys = [ :username ]
-  config.case_insensitive_keys = [ :username ]
-  config.strip_whitespace_keys = [ :username ]
+  config.authentication_keys = [ :email ]
+  config.case_insensitive_keys = [ :email ]
+  config.strip_whitespace_keys = [ :email ]
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is

@@ -15,9 +15,9 @@
 //= require dataTables/jquery.dataTables
 //= require foundation
 //= require jquery.tokeninput
-//= require active_admin
 //= require mailing_lists
 //= require email_messages
+//= require email_submissions
 //= require servers
 //= require emails
 

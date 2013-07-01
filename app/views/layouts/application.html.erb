@@ -29,11 +29,17 @@
   <section class="top-bar-section">
     <ul class="right">
       <li class="divider"></li>
+      <li><%= link_to "Send Mail", new_email_submission_path %></li>   
+      <li class="divider"></li>
+      <li class= "has-dropdown"><%= link_to "Emails", emails_path %></li>
+      <li class="divider"></li>
+      <li class= "has-dropdown"><%= link_to "Mailing Lists", mailing_lists_path %></li>
+      <li class="divider"></li>
       <li><%= link_to "Servers", servers_path %></li>
       <li class="divider"></li>
-      <li><%= link_to "Emails", emails_path %></li>
+      <li class= "has-dropdown"><%= link_to "Server Lists", server_lists_path %></li>
       <li class="divider"></li>
-      <li><%= link_to "Messages",  email_messages_path %></li>
+      <li><%= link_to "Email Messages",  email_messages_path %></li>
 
       <% if user_signed_in? %>
       <li class="divider"></li>

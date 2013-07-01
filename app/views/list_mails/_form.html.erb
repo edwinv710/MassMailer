@@ -5,6 +5,6 @@
 <%= f.collection_select(:mailing_list_id, MailingList.all, :id, :name) %>
 <%= f.label "Messsage:" %>
 <%= f.collection_select(:email_message_id, EmailMessage.all, :id, :label) %>
-<%= f.input :priority, label: "Priority: " %>
-<%= f.button :submit, "Send Email" %>
+<%= f.input :priority, label: "Priority (0 = Highest Priority):" %>
+<%= f.button :submit, "Send Emails" %>
 <% end %>

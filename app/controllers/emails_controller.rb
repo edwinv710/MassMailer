@@ -1,3 +1,24 @@
+=begin
+  EmailsController:
+
+  Views:
+    index:
+      Contains a listing of every email in the database
+      Output:
+        address, count, edit, delete
+    show:
+      Detailed description on the email
+      Output:
+        address, count, table of mailing lists
+      [Future:]
+        Will contain information such as name and other statistics on that email
+    edit:
+      Edit email information
+    new:
+      Add a new email to the database
+      Inputs:
+        address
+=end
 class EmailsController < ApplicationController
   # GET /emails
   # GET /emails.json
@@ -81,13 +102,4 @@ class EmailsController < ApplicationController
     end
   end
 
-  def delete_many
-    Email.destroyManyFromList(params[:list_id], params[:email_ids])
-    redirect_to MailingList.find(params[:list_id]), notice: "Emails deleted."
-  end
-
-  def import
-    Email.import(params[:file], params[:list_id])
-    redirect_to MailingList.find(params[:list_id]), notice: "Emails imported."
-  end
 end

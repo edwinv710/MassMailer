@@ -5,5 +5,5 @@
 <p> <%=  raw @email_message.html %> </p>
 
 
-<%= link_to 'Edit', edit_email_message_path(@email_message) %> |
+<%= link_to 'Edit HTML', "/editor/messagehtml?id=#{@email_message.id}", data: {save_url: update_html_email_message_path(@email_message)} %> |
 <%= link_to 'Back', email_messages_path %>

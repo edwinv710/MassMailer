@@ -8,7 +8,7 @@
     <th>Address</th>
     <th>Port</th>
     <th>Authentication</th>
-    <th></th>
+    <th>Emails a Day</th>
     <th></th>
     <th></th>
     </tr>
@@ -16,17 +16,16 @@
 <tbody>
     <% @servers.each do |server| %>
     <tr>
-        <td><%= server.user_name %></td>
+        <td><%= link_to(server.user_name, server) %></td>
         <td><%= server.address %></td>
         <td><%= server.port %></td>
         <td><%= server.authentication %></td>
-        <td><%= link_to 'Show', server %></td>
+        <td><%= server.max_emails %></td>
         <td><%= link_to 'Edit', edit_server_path(server) %></td>
         <td><%= link_to 'Destroy', server, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
     <% end %>
 </tbody>  
-
 </table>
 
 <br />

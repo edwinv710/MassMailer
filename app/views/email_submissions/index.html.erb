@@ -1,23 +1,31 @@
-<h1>  Listing all Email Sent</h1>
+<h1>Emails Sent</h1>
 
-<table>
+<table id="submissions" class="display">
+<thead>
   <tr>
-    <th>Email</th>
-    <th>Email message</th>
-    <th></th>
+    <th>Email Address</th>
+    <th>Message Name</th>
+    <th>Delivered?</th>
+    <th>Priority</th>
+    <th>Send</th>
     <th></th>
     <th></th>
   </tr>
+</thead>
 
-<% @email_submissions.each do |email_submission| %>
-  <tr>
-    <td><%= email_submission.email_id %></td>
-    <td><%= email_submission.email_message_id %></td>
-    <td><%= link_to 'Show', email_submission %></td>
-    <td><%= link_to 'Edit', edit_email_submission_path(email_submission) %></td>
-    <td><%= link_to 'Destroy', email_submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<tbody>
+  <% @email_submissions.each do |email_submission| %>
+    <tr>
+      <td><%= Email.find(email_submission.email_id).emailAddress %></td>
+      <td><%= link_to(EmailMessage.find(email_submission.email_message_id).label, EmailMessage.find(email_submission.email_message_id)) %></td>
+      <td><%= email_submission.isdelivered %></td>
+      <td><%= email_submission.priority %></td>
+      <td><%= link_to("Send", deliver_email_submission_path(email_submission)) %>
+      <td><%= link_to 'Edit', edit_email_submission_path(email_submission) %></td>
+      <td><%= link_to 'Destroy', email_submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+<tbody>
 </table>
 
 <br />

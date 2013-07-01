@@ -1,3 +1,20 @@
+=begin
+  MailingListController
+
+  Views:
+    index:
+      List of all the mailing list. There is an potion to view edit delete
+    show:
+        List of emails
+        Import xls and cvs
+        Export cvs
+        Remove check box
+    create:
+        
+
+  
+=end
+
 class MailingListsController < ApplicationController
   # GET /mailing_lists
   # GET /mailing_lists.json
@@ -81,6 +98,29 @@ class MailingListsController < ApplicationController
       format.html { redirect_to mailing_lists_url }
       format.json { head :no_content }
     end
+  end
+
+  def delete_many
+    Email.destroyManyFromList(params[:list_id], params[:email_ids])
+    redirect_to MailingList.find(params[:list_id]), notice: "Emails deleted."
+  end
+
+  def import
+    mailing_list = MailingList.find(params[:list_id])
+    mailing_list.import(params[:file])
+    redirect_to mailing_list, notice: "Emails imported."
+  end
+
+  def remove_many
+    mailing_list = MailingList.find(params[:list_id])
+    mailing_list.remove_emails(params[:email_ids])
+    redirect_to mailing_list, notice: "Emails Removed"
+  end
+
+  def add_emails
+    mailing_list = MailingList.find(params[:list_id])
+    mailing_list.add_emails(params[:email_ids])
+    redirect_to mailing_list, notice: "Emails Added"
   end
 
 end

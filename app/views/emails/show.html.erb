@@ -1,15 +1,32 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Email Address:</b>
-  <%= @email.emailAddress %>
+  <b>Email Address: </b><%= @email.emailAddress %>
+  <br>
+  <b>Times Contacted : </b> <%= @email.count %>
 </p>
-
 <p>
-  <b>User:</b>
-  <%= @email.user_id %>
-</p>
-
+	<b>Mailing List</b> 	
+<table id="emails" class="display">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Size</th>
+    <th>Active</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody><% @email.mailing_lists.each do |list| %>
+  <tr>
+  	<td><%= link_to(list.name, list) %></td>
+    <td><%= list.emails.size %></td>
+    <td><%= list.active %></td>
+    <td><%= link_to 'Edit', edit_mailing_list_path(list) %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+<br>
 
 <%= link_to 'Edit', edit_email_path(@email) %> |
 <%= link_to 'Back', emails_path %>

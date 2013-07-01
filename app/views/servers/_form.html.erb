@@ -1,18 +1,13 @@
 <%= simple_form_for(@server) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :address %>
     <%= f.input :port %>
     <%= f.input :authentication %>
-    <%= f.input :user_name %>
-    <%= f.input :server_password %>
-    <%= f.collection_select(:server_list_ids, ServerList.all, :id, :name, {:include_blank => 'None'}, {multiple:true}) %>
-  </div>
-
-
-  <div class="form-actions">
+    <%= f.input :user_name, label: "User Name" %>
+    <%= f.input :server_password, label: "Server Password" %>
+    <%= f.input :max_emails, label: "Maximum Emails Per Day" %>
     <%= f.button :submit %>
-  </div>
+  
 <% end %>

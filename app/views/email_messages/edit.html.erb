@@ -1,6 +1,7 @@
-<h1>Edit Email Message</h1>
+<h1>Edit Email Information</h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Show', @email_message %> |
+<%= link_to 'Edit HTML', "/editor/messagehtml?id=#{@email_message.id}", data: {save_url: update_html_email_message_path(@email_message)} %> |
 <%= link_to 'Back', email_messages_path %>

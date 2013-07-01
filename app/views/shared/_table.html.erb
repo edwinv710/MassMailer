@@ -1,0 +1,26 @@
+<table id="messages" class="display">
+<thead>  
+  <tr>
+  <% head.each do |h| %>
+    <th><%= h %></th>
+  <% end %>
+  </tr>
+</thead>
+
+<tbody>
+<% object.each do |o| %>
+  <tr>
+   <td><%= link_to(object.send(attr[0]), o) %></td> 
+   <%  (1..attr.size).each do |a| %>
+    <td> <% o.send(a) %> </td>  
+    <% end %>
+
+    <td> <%= email_message.label %> </td>
+    <td> <%= email_message.subject %> </td>
+    <td><%= link_to 'Show', email_message %></td>
+    <td><%= link_to 'Edit HTML', "/editor/messagehtml?id=#{email_message.id}", data: {save_url: update_html_email_message_path(email_message)}%></td>
+    <td><%= link_to 'Destroy', email_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>

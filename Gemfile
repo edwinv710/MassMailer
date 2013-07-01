@@ -20,7 +20,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'zurb-foundation'
   gem 'simple_form'
-  gem 'activeadmin'
   gem 'jquery-ui-rails'
   gem 'jquery-datatables-rails'
   gem 'roo'
@@ -37,6 +36,7 @@ gem 'hpricot'
 gem 'premailer-rails'
 
 gem 'mercury-rails'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130625221314) do
+ActiveRecord::Schema.define(:version => 20130629044633) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -66,10 +66,11 @@ ActiveRecord::Schema.define(:version => 20130625221314) do
   create_table "email_submissions", :force => true do |t|
     t.string   "email_id"
     t.string   "email_message_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "server_id"
-    t.boolean  "delivered"
+    t.boolean  "isdelivered",      :default => false
+    t.integer  "priority"
   end
 
   create_table "emails", :force => true do |t|
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130625221314) do
     t.string   "user_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "count"
   end
 
   create_table "emails_mailing_lists", :id => false, :force => true do |t|
@@ -100,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20130625221314) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "description"
+    t.boolean  "active"
   end
 
   create_table "owners", :force => true do |t|
@@ -127,10 +130,11 @@ ActiveRecord::Schema.define(:version => 20130625221314) do
     t.string   "authentication"
     t.string   "user_name"
     t.string   "password_digest"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "server_list_id"
     t.string   "server_password"
+    t.integer  "max_emails",      :default => 0
   end
 
   create_table "servers_server_lists", :id => false, :force => true do |t|

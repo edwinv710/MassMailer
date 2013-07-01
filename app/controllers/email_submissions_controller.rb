@@ -1,3 +1,14 @@
+=begin
+  Email Submission
+
+    Index
+      List all emails that were sent.
+    Create
+      Send the email
+
+
+
+=end
 class EmailSubmissionsController < ApplicationController
   # GET /email_submissions
   # GET /email_submissions.json
@@ -50,8 +61,8 @@ class EmailSubmissionsController < ApplicationController
 
     respond_to do |format|
       if @email_submission.save
-        @email_submission.deliver(server, email, message)
-        format.html { redirect_to @email_submissions, notice: 'Email submission was successfully sent.' }
+        #@email_submission.deliver(server, email, message)
+        format.html { redirect_to email_submissions_url, notice: 'Email submission was successfully created.' }
         format.json { render json: @email_submissions, status: :created, location: @email_submission }
       else
         format.html { render action: "new" }
@@ -88,5 +99,16 @@ class EmailSubmissionsController < ApplicationController
       format.html { redirect_to email_submissions_url }
       format.json { head :no_content }
     end
+  end
+
+  def deliver
+    @email_submission = EmailSubmission.find(params[:id])
+    @email_submission.deliver
+
+    respond_to do |format|
+      format.html { redirect_to email_submissions_path, notce: "Email was successfully sent" }
+      format.json { head :no_content }
+    end
+
   end
 end

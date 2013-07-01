@@ -1,3 +1,10 @@
+=begin
+  EmailMessageController
+    Index
+      List all email address
+
+=end
+
 class EmailMessagesController < ApplicationController
   # GET /email_messages
   # GET /email_messages.json
@@ -93,5 +100,10 @@ class EmailMessagesController < ApplicationController
     email_message.save!
     render text: ""
   end
+
+  def view
+    @email_message = EmailMessage.find(params[:id])
+  end
+
 
 end

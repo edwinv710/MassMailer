@@ -10,13 +10,22 @@ MassMailer::Application.routes.draw do
   resources :servers
 
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
+  resources :mailing_lists do
+    collection do 
+      post :import
+      post :remove_many
+      post :add_emails
+    end
+  end
 
-  resources :mailing_lists
 
 
-  resources :email_submissions
+  resources :email_submissions do
+    member do
+      get :deliver
+    end
+  end
+
 
 
   get "home_page/SendMail"
@@ -25,28 +34,15 @@ MassMailer::Application.routes.draw do
 
   resources :email_messages do
     member { post :update_html }
+    member { get :view }
   end
 
 
   devise_for :users
-  ActiveAdmin.routes(self)
 
-  resources :owners
-
-
-  resources :companies
-
-
-  resources :emails do
-    collection do 
-      post :import
-      post :delete_many
-    end
-  end
-
+  resources :emails 
 
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
-  ActiveAdmin.routes(self)
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -104,5 +100,6 @@ MassMailer::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   match '/messagehtml' => 'email_messages#editor'
+  match '/view' => 'email_messages#view'
   root :to => 'email_submissions#new'
 end

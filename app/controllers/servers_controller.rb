@@ -1,3 +1,24 @@
+=begin
+  ServersController:
+
+  Views:
+    index:
+      Contains a listing of every server in the database
+      Output:
+        :address, :name, :port, :user_name, :authentication, :max_emails
+    show:
+      Detailed description on the email
+      Output:
+        address, count, table of mailing lists
+      [Future:]
+        Will contain information such as name and other statistics on that email
+    edit:
+      Edit email information
+    new:
+      Add a new email to the database
+      Inputs:
+        address
+=end
 class ServersController < ApplicationController
 	def new
     @server = Server.new

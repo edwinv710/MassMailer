@@ -1,0 +1,13 @@
+This is where we write what we have to do and where we are at in the application
+
+T0D0
+	- Email Submission
+	- Enviroment Variables
+
+
+What => 
+	Go through each controller and make sure everything runs fine through the views
+
+Where => 
+	email_submissions
+

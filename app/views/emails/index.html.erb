@@ -1,19 +1,21 @@
-<p><h2 >All Emails</h2></p>
+<p><h2 >Emails</h2></p>
 
 <p>
 <table id="emails" class="display">
   <thead>
   <tr>
     <th>Email</th>
-    <th></th>
+    <th>Mailing Lists</th>
+    <th>Times Contacted</th>
     <th></th>
     <th></th>
   </tr>
   </thead>
   <tbody><% @emails.each do |email| %>
   <tr>
-    <td><%= email.emailAddress %></td>
-    <td><%= link_to 'Show', email %></td>
+    <td><%= link_to email.emailAddress, email %></td>
+    <td><%= email.mailing_lists.size %></td>
+    <td><%= email.count %></td>
     <td><%= link_to 'Edit', edit_email_path(email) %></td>
     <td><%= link_to 'Destroy', email, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -23,4 +25,4 @@
 
 </p>
 <br />
-<p><%= link_to 'New Email', new_email_path, class: "button radius" %></p>
+<p><%= link_to 'New Email', new_email_path %></p>

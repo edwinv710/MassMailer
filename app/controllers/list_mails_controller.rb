@@ -1,2 +1,3 @@
-class ListMailsController < InheritedResources::Base
+class ListMailsController < ApplicationController
+	
 end
