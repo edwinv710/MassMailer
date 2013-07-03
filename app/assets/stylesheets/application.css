@@ -14,5 +14,6 @@
  *= require jquery.ui.core
  *= require jquery.ui.theme
  *= require dataTables/src/demo_table_jui
- *= require_tree .
+ *= require foundation_and_overrides
+ *= require scaffolds
  */

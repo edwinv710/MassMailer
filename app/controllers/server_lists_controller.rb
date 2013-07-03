@@ -1,3 +1,6 @@
+
+
+
 class ServerListsController < ApplicationController
 	def show
    	 @server_list = ServerList.find(params[:id])
@@ -68,5 +71,19 @@ class ServerListsController < ApplicationController
   def edit
     @server_list = ServerList.find(params[:id])
   end
+
+  def remove_many
+      server_list = ServerList.find(params[:server_list_id])
+      server_list.remove_emails(params[:server_ids])
+      redirect_to server_list, notice: "Servers Removed"
+  end
+
+  def add_servers
+    server_list = ServerList.find(params[:server_list_id])
+    server_list.add_servers(params[:server_ids])
+    redirect_to server_list, notice: "Servers Added"
+  end
+
+
 
 end

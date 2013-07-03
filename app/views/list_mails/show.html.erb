@@ -1,5 +1,34 @@
 <p id="notice"><%= notice %></p>
 
+<h4>Email Submissions</h4>
+
+<table id="listmail" class="display">
+<thead>
+  <tr>
+    <th>Email Address</th>
+    <th>Message Name</th>
+    <th>Delivered?</th>
+    <th>Priority</th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @list_mail.email_submissions.each do |email_submission| %>
+    <tr>
+      <td><%= link_to Email.find(email_submission.email_id).emailAddress, Email.find(email_submission.email_id) %></td>
+      <td><%= link_to(EmailMessage.find(email_submission.email_message_id).label, EmailMessage.find(email_submission.email_message_id)) %></td>
+      <td><%= email_submission.isdelivered %></td>
+      <td><%= email_submission.priority %></td>
+      <td><%= link_to 'Edit', edit_email_submission_path(email_submission) %></td>
+      <td><%= link_to 'Destroy', email_submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+<tbody>
+</table>
+
+<br />
 
 <%= link_to 'Edit', edit_list_mail_path(@list_mail) %> |
 <%= link_to 'Back', list_mails_path %>

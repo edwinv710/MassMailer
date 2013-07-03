@@ -16,36 +16,50 @@ Database variables:
 =end
 
 class ListMail < ActiveRecord::Base
-   attr_accessor :completed
-   attr_readable :email_submissions
+   attr_accessible :completed,:email_submission_ids, :message_id , :mailing_list_id, :server_id, :name, :priority, :server_list_id
+   has_many :email_submissions
+
+
+   def init
+   	self.completed = false
+   	self.priority = 5
+   	if ((self.name == nil) || (self.name == ""))
+   		self.name = "Test Mass Mail #{self.id}"
+   	end
+   end
 
 =begin
 	Method: addSubmission
 		Created a Mass Mail that can be sent at any point 
 =end
-	def addSubmission(email_id, server_id, message_id, priority = 5)
-		if email.instance_of?(Email)
-			params => {:email_id => email_id, :server_id => server_id, :message_id => message_id, :priority => priority_id}
-			submission = EmailSubmission.new(params)
-			:email_submissions << submission 
-		else
-			MailingList.find(email_id).emails.each do |e|
-				params => {:email_id => e.id, :server_id => server_id, :message_id => message_id, :priority => priority_id}
-				submission = EmailSubmission.new(params)
-				:email_submissions << submission 
-			end
+	def addSubmissions(email_id, server_list_id, message_id, priority = 5)
+		MailingList.find(email_id).emails.each do |e|
+			submission = EmailSubmission.new(:email_id => e.id,  :email_message_id => message_id, :priority => priority)
+			email_submissions <<  submission
+			submission.save
 		end
 	end 
 
 
 
+	def select_random_server(slist)	
+		offset = rand(slist.servers.count)
+		
+		if offset > 0
+			slist.servers.first(:offset => offset)
+		else
+			false
+		end
+	end
+
 =begin
 	Method: deliver
 		Deliver all email submissions
 =end
-   def deliver
-   		email_submissions.each do |e|
-   			e.deliver
-   		end
-   end
+	def deliver
+	   	email_submissions.each do |e|
+	   		e.deliver
+	   	end
+	end
+
 end

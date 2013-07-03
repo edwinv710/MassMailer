@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130629044633) do
+ActiveRecord::Schema.define(:version => 20130703004513) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(:version => 20130629044633) do
     t.string   "server_id"
     t.boolean  "isdelivered",      :default => false
     t.integer  "priority"
+    t.string   "list_mail_id"
+    t.string   "server_list_id"
   end
 
   create_table "emails", :force => true do |t|
@@ -91,10 +93,11 @@ ActiveRecord::Schema.define(:version => 20130629044633) do
     t.string   "server_list_id"
     t.string   "mailing_list_id"
     t.string   "message_id"
-    t.boolean  "completed"
-    t.integer  "priority"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.boolean  "completed",           :default => false
+    t.integer  "priority",            :default => 5
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "email_submission_id"
   end
 
   create_table "mailing_lists", :force => true do |t|
@@ -130,11 +133,14 @@ ActiveRecord::Schema.define(:version => 20130629044633) do
     t.string   "authentication"
     t.string   "user_name"
     t.string   "password_digest"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "server_list_id"
     t.string   "server_password"
     t.integer  "max_emails",      :default => 0
+    t.datetime "current_day"
+    t.integer  "count_day"
+    t.boolean  "is_active",       :default => true
   end
 
   create_table "servers_server_lists", :id => false, :force => true do |t|

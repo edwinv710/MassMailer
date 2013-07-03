@@ -57,7 +57,7 @@ class EmailSubmissionsController < ApplicationController
     email = @email_submission.email_id
     message = @email_submission.email_message_id
     server = @email_submission.server_id
-    
+    delivered = false    
 
     respond_to do |format|
       if @email_submission.save

@@ -1,13 +1,81 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @server_list.name %>
-  <b>Servers:</b>
-  <%= @server_list.servers.each do |s| %>
-  <%= s.name %>
-  <%end%>
-</p>
+<h5>Server List : <%= @server_list.name %></h5>
+
+<%= form_tag remove_many_server_lists_path do %>
+	<%= hidden_field_tag :server_list_id, @server_list.id %>
+
+	<table id="serverlist" class="display">
+
+	<thead>
+	    <tr>
+	    <th>User name</th>
+	    <th>Address</th>
+	    <th>Port</th>
+	    <th>Authentication</th>
+	    <th>Emails a Day</th>
+	    <th></th>
+	    <th></th>
+	    </tr>
+	</thead>
+	<tbody>
+	    <% @server_list.servers.each do |server| %>
+	    <tr>
+	        <td><%= link_to(server.user_name, server) %></td>
+	        <td><%= server.address %></td>
+	        <td><%= server.port %></td>
+	        <td><%= server.authentication %></td>
+	        <td><%= server.max_emails %></td>
+	        <td><%= link_to 'Edit', edit_server_path(server) %></td>
+	        <td><%=check_box_tag "server_ids[]", server.id %> Remove</td>
+	    </tr>
+	    <% end %>
+	</tbody>  
+	</table>
+
+	<br>
+	<%= submit_tag "Remove Servers" %>
+<% end %>
+
+<br>
+
+<%= form_tag add_servers_server_lists_path do %>
+  <%= hidden_field_tag :server_list_id, @server_list.id %>
+  <h5> Add Servers </h5>
+  <br>
+
+    <table id="servers" class="display">
+    <thead>
+	    <tr>
+	    <th>User name</th>
+	    <th>Address</th>
+	    <th>Port</th>
+	    <th>Authentication</th>
+	    <th>Emails a Day</th>
+	    <th></th>
+	    <th></th>
+	    </tr>
+	</thead>
+	<tbody>
+	    <% Server.all.each do |server| %>
+	    <tr>
+	        <td><%= link_to(server.user_name, server) %></td>
+	        <td><%= server.address %></td>
+	        <td><%= server.port %></td>
+	        <td><%= server.authentication %></td>
+	        <td><%= server.max_emails %></td>
+	        <td><%= link_to 'Edit', edit_server_path(server) %></td>
+	        <td><%=check_box_tag "server_ids[]", server.id %> Add</td>
+	    </tr>
+	    <% end %>
+	</tbody>  
+    </table>
+  
+  <br>
+<%= submit_tag "Add Servers" %>
+<% end %>
+
+
 
 
 <%= link_to 'Edit', edit_server_list_path(@server_list) %> |

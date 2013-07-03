@@ -1,21 +1,37 @@
-<h1>Mass Mail Sent</h1>
+<h5>Mass Mail</h5>
 
-<table>
+<table id="listmail" class="display">
+<thead>
   <tr>
+    <th>Name</th>
+    <th>Mailing List</th>
+    <th>Message</th>
+    <th>Server List</th>
+    <th>Delivered?</th>
+    <th>Priority</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
+</thead>
 
-<% @list_mails.each do |list_mail| %>
-  <tr>
-    <td><%= link_to 'Show', list_mail %></td>
-    <td><%= link_to 'Edit', edit_list_mail_path(list_mail) %></td>
-    <td><%= link_to 'Destroy', list_mail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<tbody>
+  <% @list_mails.each do |list_mail| %>
+    <tr>
+      <td><%= link_to list_mail.name, list_mail %></td>
+      <td><%= link_to MailingList.find(list_mail.mailing_list_id).name, MailingList.find(list_mail.mailing_list_id)  %></td>
+      <td><%= link_to EmailMessage.find(list_mail.message_id).label, EmailMessage.find(list_mail.message_id) %></td>
+      <td><%= link_to ServerList.find(list_mail.server_list_id).name, ServerList.find(list_mail.server_list_id) %></td>
+      <td><%= list_mail.completed %></td>
+      <td><%= list_mail.priority %></td>
+      <td><%= link_to "Send", "#" %>
+      <td><%= link_to 'Edit', edit_list_mail_path(list_mail) %></td>
+      <td><%= link_to 'Destroy', list_mail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+<tbody>
 </table>
 
 <br />
 
-<%= link_to 'New List mail', new_list_mail_path %>
+<%= link_to 'New Mass Mail', new_list_mail_path %>

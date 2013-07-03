@@ -1,4 +1,3 @@
-
 <%= simple_form_for @email_submission do |f| %>
 <%= f.label "Server:" %>
 <%= f.collection_select(:server_id, Server.all, :id, :user_name )%>

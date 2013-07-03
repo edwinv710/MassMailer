@@ -8,6 +8,7 @@
     <th>Address</th>
     <th>Port</th>
     <th>Authentication</th>
+    <th>Emails Today</th>
     <th>Emails a Day</th>
     <th></th>
     <th></th>
@@ -21,6 +22,7 @@
         <td><%= server.port %></td>
         <td><%= server.authentication %></td>
         <td><%= server.max_emails %></td>
+        <td><%= server.count_day %></td>
         <td><%= link_to 'Edit', edit_server_path(server) %></td>
         <td><%= link_to 'Destroy', server, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>

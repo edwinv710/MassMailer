@@ -1,7 +1,12 @@
 MassMailer::Application.routes.draw do
   mount Mercury::Engine => '/'
 
-  resources :server_lists
+  resources :server_lists do
+    collection do 
+      post :remove_many
+      post :add_servers
+    end
+  end
 
 
   resources :list_mails

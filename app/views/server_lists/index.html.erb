@@ -1,23 +1,28 @@
-<h1>List Severs</h1>
+<h1>Sever List</h1>
 
-<table>
+<table id="serverlist" class="display">
+<thead>
   <tr>
     <th>Name</th>
-    <th></th>
+    <th>Count</th>
     <th></th>
     <th></th>
   </tr>
+<thead>
 
-<% @server_lists.each do |server_list| %>
-  <tr>
-    <td><%= server_list.name %></td>
-    <td><%= link_to 'Show', server_list %></td>
-    <td><%= link_to 'Edit', edit_server_list_path(server_list) %></td>
-    <td><%= link_to 'Destroy', server_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<tbody>
+  <% @server_lists.each do |server_list| %>
+    <tr>
+      <td><%= link_to server_list.name, server_list %></td>
+      <td><%= server_list.server_ids.size %></td>
+      <td><%= link_to 'Edit', edit_server_list_path(server_list) %></td>
+      <td><%= link_to 'Destroy', server_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</tbody>
+
 </table>
 
 <br />
 
-<%= link_to 'New Server list', new_server_list_path %>
+<%= link_to 'New Server List', new_server_list_path %>

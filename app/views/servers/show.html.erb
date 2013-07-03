@@ -30,6 +30,14 @@
   <%= @server.password_digest %>
 </p>
 
+<p>
+  <b>Emails Today:</b>
+  <%= @server.count_day %>
+</p>
 
+<p>
+  <b>Max Emails per Day:</b>
+  <%= @server.max_emails %>
+</p>
 <%= link_to 'Edit', edit_server_path(@server) %> |
 <%= link_to 'Back', servers_path %>

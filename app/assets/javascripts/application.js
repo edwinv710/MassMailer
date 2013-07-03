@@ -19,6 +19,8 @@
 //= require email_messages
 //= require email_submissions
 //= require servers
+//= require server_lists
+//= require list_mails
 //= require emails
 
 $(function(){ $(document).foundation(); });
