@@ -28,12 +28,22 @@ TODO:
 =end
 
 class EmailSubmission < ActiveRecord::Base
-  attr_accessible :email_id, :email_message_id, :server_id, :delivered, :priority, :email, :list_mail_id
+  attr_accessible :email_id, :email_message_id, :server_id, :isdelivered, :priority, :email, :list_mail_id
   has_one :email
   has_one :email_message
   has_one :server
   has_one :server_list
   belongs_to :list_mail
+
+  validates :email_id, :email_message_id,  presence: true
+  validates :priority, numericality: {:greater_than_or_equal_to => 0}
+
+  def init
+  	unless priority
+  		self.priority = 5
+  	end
+
+  end
   
 =begin  
 	Method: 
@@ -42,18 +52,29 @@ class EmailSubmission < ActiveRecord::Base
 		Sends the email created
 =end  
 
+	
+  def self.deliver(id)
+    find(id).deliver
+  end
+
   def deliver
-  	if list_mail_id
+ 	return_value = false
+  	if list_mail_id != nil
   		set_new_server
   	end
   	server = Server.find(server_id)
   	email = Email.find(email_id)
   	message = EmailMessage.find(email_message_id)
-  	if server.is_active?
-  		UserMailer.send_email(server, email, message).deliver
-  		delivered = true
-  		server.count_day = server.count_day + 1
+  	#debugger
+  	if server.isactive? == true && email.subscribed == true
+  		if UserMailer.send_email(server, email, message).deliver
+	  		update_attribute(:isdelivered, true)
+	  		server.update_attribute(:count_day, (server.count_day + 1))
+	  		email.update_attribute(:count, (email.count+1))
+	  		return_value = true
+  		end
   	end
+  	return_value
   	#Email.find(email_id).count = Email.find(email_id).count + 1
   end
 
@@ -61,17 +82,19 @@ class EmailSubmission < ActiveRecord::Base
   	list = ServerList.find(ListMail.find(list_mail_id).server_list_id)
   	temp_servers = list.get_active_servers
   	temp_server = select_random_server(list)
-  	if temp_server
-  		server_id = temp_server_id
+  	if temp_server != false
+  		update_attribute(:server_id, temp_server.id)
   	else
   		false
   	end
   end
 
   def select_random_server(slist)	
-		offset = rand(slist.servers.count)
+  		#debugger
+  		count = slist.servers.count
+		offset = rand(count)
 		
-		if offset > 0
+		if count > 0
 			slist.servers.first(:offset => offset)
 		else
 			false

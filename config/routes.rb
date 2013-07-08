@@ -1,4 +1,6 @@
+
 MassMailer::Application.routes.draw do
+mount WillFilter::Engine => "/will_filter"
   mount Mercury::Engine => '/'
 
   resources :server_lists do
@@ -9,7 +11,11 @@ MassMailer::Application.routes.draw do
   end
 
 
-  resources :list_mails
+  resources :list_mails do
+    member do
+      get :deliver
+    end
+  end
 
 
   resources :servers
@@ -20,6 +26,7 @@ MassMailer::Application.routes.draw do
       post :import
       post :remove_many
       post :add_emails
+      get :add
     end
   end
 
@@ -104,7 +111,9 @@ MassMailer::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+  match "/delayed_job" => DelayedJobWeb, :anchor => false
   match '/messagehtml' => 'email_messages#editor'
+  match '/mailing_lists/:id/add' => 'mailing_lists#add'
   match '/view' => 'email_messages#view'
-  root :to => 'email_submissions#new'
+  root :to => 'list_mails#index'
 end

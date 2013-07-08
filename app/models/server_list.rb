@@ -10,6 +10,8 @@ class ServerList < ActiveRecord::Base
   attr_accessible :name, :server_ids, :servers
   has_and_belongs_to_many :servers
 
+  validates :name, presence: true
+
   def add_server(server_id)
   	unless server_ids.include?(server_id)
   		server_ids << server_id

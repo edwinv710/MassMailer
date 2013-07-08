@@ -20,10 +20,14 @@ require "csv"
 =end
 
 class MailingList < ActiveRecord::Base
-	before_save :default_values
   attr_accessible :name, :description, :email_ids, :active
   has_and_belongs_to_many :emails
-  
+    
+  validates :name, :description, presence: true 
+
+  def default_values
+    self.active = false
+  end
 
 #Method: import
 #		Imports a CVS or Excel to the mailing list 
@@ -35,9 +39,12 @@ class MailingList < ActiveRecord::Base
 
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      email = self.emails.find_by_id(row["id"]) || Email.new
-      email.attributes = row.to_hash.slice(*(Email.accessible_attributes))
-      email.save!
+      email = self.emails.find_by_emailAddress(row["emailAddress"]) || Email.new
+      if(row["emailAddress"].to_s.include?("@"))
+        email.attributes = row.to_hash.slice(*(Email.accessible_attributes))
+        email.default_values
+        email.save!
+      end
       unless emails.include?(email)
         emails << email
       end
@@ -71,9 +78,7 @@ class MailingList < ActiveRecord::Base
   end
 
 
-  def default_values
-   	active = false
-  end
+  
 
   def remove_emails(emailids)
     emailids.each do |e|

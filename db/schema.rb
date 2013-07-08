@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703004513) do
+ActiveRecord::Schema.define(:version => 20130708011853) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -54,6 +54,22 @@ ActiveRecord::Schema.define(:version => 20130703004513) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
   create_table "email_messages", :force => true do |t|
     t.string   "message"
     t.datetime "created_at", :null => false
@@ -78,9 +94,20 @@ ActiveRecord::Schema.define(:version => 20130703004513) do
   create_table "emails", :force => true do |t|
     t.string   "emailAddress"
     t.string   "user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.string   "name",         :default => "None"
     t.integer  "count"
+    t.boolean  "subscribed",   :default => true
+    t.string   "company"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "gender"
+    t.string   "title"
   end
 
   create_table "emails_mailing_lists", :id => false, :force => true do |t|
@@ -98,6 +125,7 @@ ActiveRecord::Schema.define(:version => 20130703004513) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "email_submission_id"
+    t.integer  "count"
   end
 
   create_table "mailing_lists", :force => true do |t|
@@ -141,6 +169,7 @@ ActiveRecord::Schema.define(:version => 20130703004513) do
     t.datetime "current_day"
     t.integer  "count_day"
     t.boolean  "is_active",       :default => true
+    t.string   "host"
   end
 
   create_table "servers_server_lists", :id => false, :force => true do |t|
@@ -166,5 +195,17 @@ ActiveRecord::Schema.define(:version => 20130703004513) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "will_filter_filters", :force => true do |t|
+    t.string   "type"
+    t.string   "name"
+    t.text     "data"
+    t.integer  "user_id"
+    t.string   "model_class_name"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "will_filter_filters", ["user_id"], :name => "index_will_filter_filters_on_user_id"
 
 end

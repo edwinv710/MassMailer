@@ -1,0 +1,11 @@
+<%= simple_form_for @email_submission do |f| %>
+<%= f.label "Server:" %>
+<%= f.collection_select(:server_id, Server.all, :id, :user_name )%>
+<%= f.label "Email:" %>
+<%= f.collection_select(:email_id, Email.all, :id, :emailAddress) %>
+<%= f.label "Messsage:" %>
+<%= f.collection_select(:email_message_id, EmailMessage.all, :id, :label) %>
+<%= f.input :isdelivered, as: :select, label: "Delivered:" %>
+<%= f.input :priority, label: "Priority (0 = Highest Priority)" %>
+<p> <%=  f.button :submit, "Send Email"  %> </p>
+<% end %>

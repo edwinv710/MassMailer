@@ -1,26 +1,25 @@
-<table id="messages" class="display">
-<thead>  
-  <tr>
-  <% head.each do |h| %>
-    <th><%= h %></th>
-  <% end %>
-  </tr>
-</thead>
 
-<tbody>
-<% object.each do |o| %>
-  <tr>
-   <td><%= link_to(object.send(attr[0]), o) %></td> 
-   <%  (1..attr.size).each do |a| %>
-    <td> <% o.send(a) %> </td>  
-    <% end %>
 
-    <td> <%= email_message.label %> </td>
-    <td> <%= email_message.subject %> </td>
-    <td><%= link_to 'Show', email_message %></td>
-    <td><%= link_to 'Edit HTML', "/editor/messagehtml?id=#{email_message.id}", data: {save_url: update_html_email_message_path(email_message)}%></td>
-    <td><%= link_to 'Destroy', email_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</tbody>
-</table>
+<%= will_filter_table_tag(@servers, :columns => [
+    :id, 
+    { :key => :user_name,
+        :value => lambda{|obj| 
+          link_to(obj.user_name, obj) 
+    }}, 
+    :address, 
+    :port, 
+    :host, 
+    :authentication,
+    { :key => "Active",
+        :value => lambda{|obj| 
+          obj.isactive?
+    }},  
+    :count_day, 
+    :max_emails,
+     [:actions, lambda{ |obj|
+              actions = []
+              actions << link_to('Edit', :action => :edit, :id => obj.id)   
+              actions << link_to('Destroy', obj, method: :delete, data: { confirm: 'Are you sure?' }) 
+              actions.join(' | ').html_safe
+          }, 'padding:3px;width:150px;padding-left:10px;']
+    ] )%>

@@ -13,4 +13,9 @@
 
 class EmailMessage < ActiveRecord::Base
    attr_accessible :label, :subject, :html
+
+   validates :label, :subject, presence: true
+ 
+
+
 end

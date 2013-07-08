@@ -1,8 +1,9 @@
 class UserMailer < ActionMailer::Base
-  default from: "edwin.velasquez89@gmail.com"
+  default from: "cross.county.best@gmail.com"
 
   def send_email(server_id, email_id, email_message_id)
   	@server = Server.find(server_id)
+
 
   	ActionMailer::Base.raise_delivery_errors = true
   	ActionMailer::Base.smtp_settings = {

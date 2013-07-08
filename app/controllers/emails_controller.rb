@@ -21,13 +21,13 @@
 =end
 class EmailsController < ApplicationController
   # GET /emails
-  # GET /emails.json
+  # GET /emails.jsonEmailsDatatable
   def index
-    @emails = Email.order(:emailAddress)
+    @emails = Email.filter(:params => params)
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @emails.emailAddress.where("emailAddress like ?", "%#{params[:q]}%")  }
+      format.json { render json: @emails}
     end
   end
 
@@ -62,6 +62,7 @@ class EmailsController < ApplicationController
   # POST /emails.json
   def create
     @email = Email.new(params[:email])
+    @email.default_values
 
     respond_to do |format|
       if @email.save

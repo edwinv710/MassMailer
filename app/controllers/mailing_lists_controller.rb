@@ -19,7 +19,7 @@ class MailingListsController < ApplicationController
   # GET /mailing_lists
   # GET /mailing_lists.json
   def index
-    @mailing_lists = MailingList.all
+    @mailing_lists = MailingList.filter(:params => params)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,6 +32,8 @@ class MailingListsController < ApplicationController
   # GET /mailing_lists/1.json
   def show
     @mailing_list = MailingList.find(params[:id])
+    @emails = @mailing_list.emails.filter(:params => params)
+    @emails_all = Email.filter(:params => params)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -115,6 +117,15 @@ class MailingListsController < ApplicationController
     mailing_list = MailingList.find(params[:list_id])
     mailing_list.remove_emails(params[:email_ids])
     redirect_to mailing_list, notice: "Emails Removed"
+  end
+
+  def add
+    @mailing_list = MailingList.find(params[:id])
+    @emails = Email.filter(:params => params)
+
+    respond_to do |format|
+      format.html # new.html.erb
+    end
   end
 
   def add_emails

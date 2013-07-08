@@ -1,9 +1,8 @@
 <%= simple_form_for(@server) do |f| %>
-  <%= f.error_notification %>
-
     <%= f.input :name %>
     <%= f.input :address %>
     <%= f.input :port %>
+    <%= f.input :host %>
     <%= f.input :authentication %>
     <%= f.input :user_name, label: "User Name" %>
     <%= f.input :server_password, label: "Server Password" %>

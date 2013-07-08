@@ -37,7 +37,17 @@ gem 'premailer-rails'
 
 gem 'mercury-rails'
 
-gem 'will_paginate'
+gem 'delayed_job_active_record'
+
+gem 'delayed_job_web'
+
+gem 'debugger'
+
+gem "daemons" 
+
+gem 'will_filter'
+gem 'kaminari'
+gem 'rack-mini-profiler'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

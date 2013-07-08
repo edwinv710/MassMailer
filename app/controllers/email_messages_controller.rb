@@ -9,7 +9,7 @@ class EmailMessagesController < ApplicationController
   # GET /email_messages
   # GET /email_messages.json
   def index
-    @email_messages = EmailMessage.all
+    @email_messages = EmailMessage.filter(:params => params)
 
     respond_to do |format|
       format.html # index.html.erb

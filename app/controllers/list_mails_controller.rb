@@ -8,7 +8,7 @@
 class ListMailsController < ApplicationController
 
   def index
-    @list_mails = ListMail.all
+    @list_mails = ListMail.filter(:params => params)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,6 +18,7 @@ class ListMailsController < ApplicationController
 
   def show
     @list_mail = ListMail.find(params[:id])
+    @email_submissions = @list_mail.email_submissions.filter(:params => params)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -56,6 +57,16 @@ class ListMailsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to list_mails_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def deliver
+    @list_mail = ListMail.find(params[:id])
+    @list_mail.deliver
+
+    respond_to do |format|
+      format.html { redirect_to list_mails_path, notce: "Emails are being sent" }
       format.json { head :no_content }
     end
   end

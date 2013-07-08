@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <h3><%= @mailing_list.name %></h3>
+  <h5><%= @mailing_list.name %></h5>
 </p>
 
 <p>
@@ -9,69 +9,46 @@
   <%= link_to "CSV", mailing_list_path(format: "csv") %>
 </p>
 
+<h5> Emails </h5>
+<br>
+<%= will_filter_tag(@emails) %>
 <%= form_tag remove_many_mailing_lists_path do %>
   <%= hidden_field_tag :list_id, @mailing_list.id %>
+  <%= will_filter_table_tag(@emails, :columns => [
+      :id, 
+      :name,
+      { :key => :emailAddress,
+          :value => lambda{|obj| 
+            link_to(obj.emailAddress, obj) 
+      }},
+      :company,
+      :gender,
+      :title, 
+      :first_name,
+      :last_name,
+      :address,
+      :city,
+      :state,
+      :zip,
+      { :key => :count,
+          :value => lambda{|obj| 
+            obj.count
+      },:title => "Times Contacted"},  
+      [:remove, lambda{ |obj|
+              actions = []  
+              actions << check_box_tag("email_ids[]", obj.id)
+              actions.join(' | ').html_safe
+          },], 
+       [:actions, lambda{ |obj|
+                actions = []
+                actions << link_to('Edit', edit_email_path(obj.id))
+                actions.join(' | ').html_safe
+            }, ]
+      ] )%>
 
-  <table id="mailing" class="display">
-    <thead>
-    <tr>
-      <th>Email</th>
-      <th>Times Contacted</th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody><% @mailing_list.emails.each do |email| %>
-    <tr>
-      <td><%= link_to email.emailAddress, email %></td>
-      <td><%= email.count %>
-      <td><%= link_to 'Edit', edit_email_path(email) %></td>
-      <td><%=check_box_tag "email_ids[]", email.id %> Remove</td>
-    </tr>
-  <% end %>
-  </tbody>
-  </table>
-
-<br>
-<%= submit_tag "Remove Emails" %>
+    <%= submit_tag "Remove Emails" %>
 <% end %>
 
-<br>
-
-<%= form_tag add_emails_mailing_lists_path do %>
-  <%= hidden_field_tag :list_id, @mailing_list.id %>
-  <h5> Add Emails </h5>
-  <br>
-
-    <table id="mailingemail" class="display">
-    <thead>
-    <tr>
-      <th></th>
-      <th>Email</th>
-      <th>Mailing Lists</th>
-      <th>Times Contacted</th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody><% Email.all.each do |email| %>
-    <tr>
-      <td><%=check_box_tag "email_ids[]", email.id %></td>
-      <td><%= link_to email.emailAddress, email %></td>
-      <td><%= email.mailing_lists.size %></td>
-      <td><%= email.count %></td>
-      <td><%= link_to 'Edit', edit_email_path(email) %></td>
-      <td><%= link_to 'Destroy', email, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-    <% end %>
-    </tbody>
-    </table>
-  
-  <br>
-<%= submit_tag "Add Emails" %>
-<% end %>
-
-<br>
 
 <h5>Import (.xls, .xlsx, and .cvs)</h5>
   
@@ -80,7 +57,7 @@
   <%= submit_tag "Import" %>
 <% end %>
 
-
-
+<p> <%= link_to 'Add Emails', add_mailing_lists_path(:id => @mailing_list.id) %></p>
+ 
 <%= link_to 'Edit', edit_mailing_list_path(@mailing_list) %> |
 <%= link_to 'Back', mailing_lists_path %>

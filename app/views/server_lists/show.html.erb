@@ -2,77 +2,83 @@
 
 <h5>Server List : <%= @server_list.name %></h5>
 
+<br>
+<h5>Remove Server</h5>
+
+<%= will_filter_tag(@servers) %>
 <%= form_tag remove_many_server_lists_path do %>
 	<%= hidden_field_tag :server_list_id, @server_list.id %>
+<%= will_filter_table_tag(@servers, :columns => [
+    :id, 
+    { :key => :user_name,
+        :value => lambda{|obj| 
+          link_to(obj.user_name, obj) 
+    }}, 
+    :address, 
+    :port, 
+    :host, 
+    :authentication,
+    { :key => "Active",
+        :value => lambda{|obj| 
+          obj.isactive?
+    }},  
+    :count_day, 
+    :max_emails,
+    [:remove, lambda{ |obj|
+              actions = []  
+              actions << check_box_tag("server_ids[]", obj.id)
+              actions.join(' | ').html_safe
+          },], 
+     [:actions, lambda{ |obj|
+              actions = []
+              actions << link_to('Edit', edit_server_path(obj.id))   
+              actions.join(' | ').html_safe
+          }, 'padding:3px;width:150px;padding-left:10px;']
+    ] )%>
 
-	<table id="serverlist" class="display">
 
-	<thead>
-	    <tr>
-	    <th>User name</th>
-	    <th>Address</th>
-	    <th>Port</th>
-	    <th>Authentication</th>
-	    <th>Emails a Day</th>
-	    <th></th>
-	    <th></th>
-	    </tr>
-	</thead>
-	<tbody>
-	    <% @server_list.servers.each do |server| %>
-	    <tr>
-	        <td><%= link_to(server.user_name, server) %></td>
-	        <td><%= server.address %></td>
-	        <td><%= server.port %></td>
-	        <td><%= server.authentication %></td>
-	        <td><%= server.max_emails %></td>
-	        <td><%= link_to 'Edit', edit_server_path(server) %></td>
-	        <td><%=check_box_tag "server_ids[]", server.id %> Remove</td>
-	    </tr>
-	    <% end %>
-	</tbody>  
-	</table>
-
-	<br>
-	<%= submit_tag "Remove Servers" %>
+<%= submit_tag "Remove Servers" %>
 <% end %>
 
+<p></p>
+<p></p>
+<p></p>
+
 <br>
+<h5>Add Servers</h5>
 
-<%= form_tag add_servers_server_lists_path do %>
-  <%= hidden_field_tag :server_list_id, @server_list.id %>
-  <h5> Add Servers </h5>
-  <br>
+	<%= will_filter_tag(@server_all) %>
+	<%= form_tag add_servers_server_lists_path do %>
+  	<%= hidden_field_tag :server_list_id, @server_list.id %>
+	<%= will_filter_table_tag(@server_all, :columns => [
+	    :id, 
+	    { :key => :user_name,
+	        :value => lambda{|obj| 
+	          link_to(obj.user_name, obj) 
+	    }}, 
+	    :address, 
+	    :port, 
+	    :host, 
+	    :authentication,
+	    { :key => "Active",
+	        :value => lambda{|obj| 
+	          obj.isactive?
+	    }},  
+	    :count_day, 
+	    :max_emails,
+	    [:remove, lambda{ |obj|
+	              actions = []  
+	              actions << check_box_tag("server_ids[]", obj.id)
+	              actions.join(' | ').html_safe
+	          },], 
+	     [:actions, lambda{ |obj|
+	              actions = []
+	              actions << link_to('Edit', edit_server+path(obj.id)   
+	              actions.join(' | ').html_safe
+	          }, 'padding:3px;width:150px;padding-left:10px;']
+	    ] )%>
 
-    <table id="servers" class="display">
-    <thead>
-	    <tr>
-	    <th>User name</th>
-	    <th>Address</th>
-	    <th>Port</th>
-	    <th>Authentication</th>
-	    <th>Emails a Day</th>
-	    <th></th>
-	    <th></th>
-	    </tr>
-	</thead>
-	<tbody>
-	    <% Server.all.each do |server| %>
-	    <tr>
-	        <td><%= link_to(server.user_name, server) %></td>
-	        <td><%= server.address %></td>
-	        <td><%= server.port %></td>
-	        <td><%= server.authentication %></td>
-	        <td><%= server.max_emails %></td>
-	        <td><%= link_to 'Edit', edit_server_path(server) %></td>
-	        <td><%=check_box_tag "server_ids[]", server.id %> Add</td>
-	    </tr>
-	    <% end %>
-	</tbody>  
-    </table>
-  
-  <br>
-<%= submit_tag "Add Servers" %>
+	<%= submit_tag "Add Servers" %>
 <% end %>
 
 

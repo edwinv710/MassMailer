@@ -1,27 +1,26 @@
-<h1>Sever List</h1>
+<h5>Sever List</h5>
 
-<table id="serverlist" class="display">
-<thead>
-  <tr>
-    <th>Name</th>
-    <th>Count</th>
-    <th></th>
-    <th></th>
-  </tr>
-<thead>
-
-<tbody>
-  <% @server_lists.each do |server_list| %>
-    <tr>
-      <td><%= link_to server_list.name, server_list %></td>
-      <td><%= server_list.server_ids.size %></td>
-      <td><%= link_to 'Edit', edit_server_list_path(server_list) %></td>
-      <td><%= link_to 'Destroy', server_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</tbody>
-
-</table>
+<%= will_filter_tag(@server_lists) %>
+<%= will_filter_table_tag(@server_lists, :columns => [
+    :id, 
+    {:key => :name,
+      :value => lambda{|obj| 
+          link_to(obj.name, obj) 
+    },:title => "Name"},
+    { :key => :count,
+        :value => lambda{|obj| 
+          obj.server_ids.size
+    },:title => "Count"},  
+    { :key => "Destroy",
+        :value => lambda{|obj| 
+          button_to('Destroy', obj, method: :delete, :class => :destroy, data: { confirm: 'Are you sure?' })
+    },:title => "Destroy"},
+     [:actions, lambda{ |obj|
+              actions = []
+              actions << link_to('Edit', :action => :edit, :id => obj.id)   
+              actions.join(' | ').html_safe
+          }, 'padding:3px;width:150px;padding-left:10px;']
+    ] )%>
 
 <br />
 

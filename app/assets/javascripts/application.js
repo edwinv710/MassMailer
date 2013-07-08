@@ -11,8 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
-//= require dataTables/jquery.dataTables
 //= require foundation
 //= require jquery.tokeninput
 //= require mailing_lists

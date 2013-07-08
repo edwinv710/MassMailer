@@ -1,32 +1,35 @@
-<h5>Email Submissions</h5>
+<p><h5>Email Submissions</h5></p>
 
-<table id="submissions" class="display">
-<thead>
-  <tr>
-    <th>Email Address</th>
-    <th>Message Name</th>
-    <th>Delivered?</th>
-    <th>Priority</th>
-    <th>Send</th>
-    <th></th>
-    <th></th>
-  </tr>
-</thead>
-
-<tbody>
-  <% @email_submissions.each do |email_submission| %>
-    <tr>
-      <td><%= Email.find(email_submission.email_id).emailAddress %></td>
-      <td><%= link_to(EmailMessage.find(email_submission.email_message_id).label, EmailMessage.find(email_submission.email_message_id)) %></td>
-      <td><%= email_submission.isdelivered %></td>
-      <td><%= email_submission.priority %></td>
-      <td><%= link_to("Send", deliver_email_submission_path(email_submission)) %>
-      <td><%= link_to 'Edit', edit_email_submission_path(email_submission) %></td>
-      <td><%= link_to 'Destroy', email_submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-<tbody>
-</table>
+<%= will_filter_tag(@email_submissions) %>
+<%= will_filter_table_tag(@email_submissions, :columns => [
+    :id, 
+    { :key => lambda{|obj|  
+          Email.find(obj.email_id).emailAddress
+    },          
+        :value => lambda{|obj| 
+          link_to(Email.find(obj.email_id).emailAddress,Email.find(obj.email_id))
+    }, :title => "Email Address" }, 
+    { :key => lambda{|obj|  
+          EmailMessage.find(obj.email_message_id).label},
+        :value => lambda{|obj| 
+          link_to(EmailMessage.find(obj.email_message_id).label, EmailMessage.find(obj.email_message_id))
+    },:title => "Message Name"},  
+    { :key => "Delivered",
+        :value => lambda{|obj| 
+          obj.isdelivered?
+    },:title => "Delivered"},  
+    :priority, 
+    { :key => "Destroy",
+        :value => lambda{|obj| 
+          button_to('Destroy', obj, method: :delete, :class => :destroy, data: { confirm: 'Are you sure?' })
+    },:title => "Destroy"},
+     [:actions, lambda{ |obj|
+              actions = []
+              actions << link_to("Send", deliver_email_submission_path(obj))
+              actions << link_to('Edit', edit_email_submission_path(obj))  
+              actions.join(' | ').html_safe
+          }, 'padding:3px;width:150px;padding-left:10px;']
+    ] )%>
 
 <br />
 

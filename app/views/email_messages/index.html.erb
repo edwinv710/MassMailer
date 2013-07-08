@@ -1,25 +1,27 @@
 <h1>Messages</h1>
 
-<table id="messages" class="display">
-  <thead>  
-    <tr>
-      <th>Name</th>
-      <th>Subject</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @email_messages.each do |email_message| %>
-    <tr>
-      <td><%= link_to(email_message.label, edit_email_message_path(email_message)) %> </td>
-      <td><%= link_to(email_message.subject,email_message) %> </td>
-      <td><%= link_to 'Edit HTML', "/editor/messagehtml?id=#{email_message.id}", data: {save_url: update_html_email_message_path(email_message)}%></td>
-      <td><%= link_to 'Destroy', email_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+
+<%= will_filter_tag(@email_messages) %>
+<%= will_filter_table_tag(@email_messages, :columns => [
+    :id,   
+    { :key => :label,
+        :value => lambda{|obj| 
+          link_to(obj.label, edit_email_message_path(obj))
+    },:title => "Name"},  
+    { :key => :subject,
+        :value => lambda{|obj| 
+          link_to(obj.subject, obj)
+    },:title => "Subject"}, 
+    { :key => :edit,
+        :value => lambda{|obj| 
+          link_to('Edit', edit_email_message_path(obj)) 
+    },:title => "Edit"}, 
+    { :key => "Destroy",
+        :value => lambda{|obj| 
+          button_to('Destroy', obj, method: :delete, :class => :destroy, data: { confirm: 'Are you sure?' })
+    },:title => "Destroy"}
+    ] )%>
+
 
 <br />
 

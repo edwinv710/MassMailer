@@ -1,32 +1,32 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Email Address: </b><%= @email.emailAddress %>
+  <b>ID: </b><%= @email.id %>
   <br>
-  <b>Times Contacted : </b> <%= @email.count %>
-</p>
+  <b>Email: </b><%= @email.emailAddress %>
+  <br>
+  <b>Title: </b><%=@email.title %>
+  <br>
+  <b>Name: </b><%= @email.name %>
+  <br>
+  <b>First Name: </b><%= @email.first_name %>
+  <br>
+  <b>Last Name: </b><%= @email.last_name %>
+  <br>
+  <b>Gender: </b><%= @email.gender %>
+  <br>
+  <b>Company: </b><%= @email.company %>
+  <br>
+  <b>Address: </b><%= @email.address %>
+  <br>
+  <b>City: </b><%= @email.city %>
+  <br>
+  <b>Sate: </b><%= @email.state %>
+  <br>
+  <b>Zip: </b><%= @email.zip %>
+  <br>
+  <b>Times Contacted: </b> <%= @email.count %>
 <p>
-	<b>Mailing List</b> 	
-<table id="emails" class="display">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Size</th>
-    <th>Active</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody><% @email.mailing_lists.each do |list| %>
-  <tr>
-  	<td><%= link_to(list.name, list) %></td>
-    <td><%= list.emails.size %></td>
-    <td><%= list.active %></td>
-    <td><%= link_to 'Edit', edit_mailing_list_path(list) %></td>
-  </tr>
-<% end %>
-</tbody>
-</table>
-<br>
 
 <%= link_to 'Edit', edit_email_path(@email) %> |
 <%= link_to 'Back', emails_path %>

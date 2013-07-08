@@ -16,9 +16,10 @@ Database variables:
 =end
 
 class ListMail < ActiveRecord::Base
-   attr_accessible :completed,:email_submission_ids, :message_id , :mailing_list_id, :server_id, :name, :priority, :server_list_id
+   attr_accessible :completed,:email_submission_ids, :message_id , :mailing_list_id, :server_id, :name, :priority, 
+   	:server_list_id, :email_submissions, :count
    has_many :email_submissions
-
+   validates :priority, numericality: {:greater_than_or_equal_to => 0}
 
    def init
    	self.completed = false
@@ -34,9 +35,15 @@ class ListMail < ActiveRecord::Base
 =end
 	def addSubmissions(email_id, server_list_id, message_id, priority = 5)
 		MailingList.find(email_id).emails.each do |e|
-			submission = EmailSubmission.new(:email_id => e.id,  :email_message_id => message_id, :priority => priority)
-			email_submissions <<  submission
+			submission = EmailSubmission.new
+			submission.email_id = e.id
+			submission.email_message_id = message_id
+			submission.priority = priority
+			submission.list_mail_id = self.id
+			#params = [:email_id => e.id,  :email_message_id => message_id, :priority => priority, :list_mail_id => self.id]
+			#submission.attributes = params
 			submission.save
+			email_submissions <<  submission
 		end
 	end 
 
@@ -58,8 +65,32 @@ class ListMail < ActiveRecord::Base
 =end
 	def deliver
 	   	email_submissions.each do |e|
-	   		e.deliver
+	   		if e.isdelivered == false
+	   			EmailSubmission.delay(:queue => self.name, :priority => self.priority).deliver(e.id)
+	   		end
 	   	end
+	end
+
+	def amount_delivered
+		count = 0
+		email_submissions.each do |e|
+			if e.isdelivered
+				count = count + 1
+			end
+		end
+		count
+	end
+
+	def total_submissions
+		email_submissions.count
+	end
+
+	def completed?
+		return_value = false
+		if MailingList.find(mailing_list_id).emails.length == count
+			return_value = true
+		end
+		return_value
 	end
 
 end

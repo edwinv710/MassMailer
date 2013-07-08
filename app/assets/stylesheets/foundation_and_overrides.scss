@@ -1,3 +1,5 @@
+
+
 //
 // Foundation Variables
 //
@@ -1274,3 +1276,11 @@ $column-gutter: emCalc(60px);
 
 @import 'foundation';
 
+
+select {
+ width: 15%;
+}
+
+.wf_pcb, .wf_pcb span {
+line-height: 1px;
+}

@@ -31,7 +31,7 @@ class ServersController < ApplicationController
   def create
     @server = Server.new(params[:server])
     @server.password = @server.server_password
-
+    @server.init
     respond_to do |format|
       if @server.save
         format.html { redirect_to @server, notice: 'Server was successfully created.' }
@@ -44,7 +44,8 @@ class ServersController < ApplicationController
   end
 
   def index
-    @servers = Server.all
+    @servers = Server.filter(:params => params)
+   
 
     respond_to do |format|
       format.html # index.html.erb
@@ -66,7 +67,7 @@ class ServersController < ApplicationController
     @server = Server.find(params[:id])
 
     respond_to do |format|
-      if @server.update_attributes(params[:owner])
+      if @server.update_attributes(params[:server])
         format.html { redirect_to @server, notice: 'Server was successfully updated.' }
         format.json { head :no_content }
       else

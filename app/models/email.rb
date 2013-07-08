@@ -12,11 +12,12 @@
 =end
 
 class Email < ActiveRecord::Base
-  before_save :default_values
   has_and_belongs_to_many :mailing_lists
-  attr_accessible :emailAddress, :mailing_list_ids, :count
+  attr_accessible :emailAddress, :mailing_list_ids, :count, :name, :subscribed, :company, :address, :city, 
+  :state, :zip, :first_name, :last_name, :gender, :title
+  validates :emailAddress, presence: true
 
   def default_values
-    count = 0
+    self.count = 0
   end
 end

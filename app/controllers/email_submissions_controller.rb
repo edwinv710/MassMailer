@@ -13,7 +13,7 @@ class EmailSubmissionsController < ApplicationController
   # GET /email_submissions
   # GET /email_submissions.json
   def index
-    @email_submissions = EmailSubmission.all
+    @email_submissions = EmailSubmission.filter(:params => params)
 
     respond_to do |format|
       format.html # index.html.erb

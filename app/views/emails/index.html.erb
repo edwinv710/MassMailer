@@ -1,27 +1,37 @@
 <p><h2 >Emails</h2></p>
 
-<p>
-<table id="emails" class="display">
-  <thead>
-  <tr>
-    <th>Email</th>
-    <th>Mailing Lists</th>
-    <th>Times Contacted</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody><% @emails.each do |email| %>
-  <tr>
-    <td><%= link_to email.emailAddress, email %></td>
-    <td><%= email.mailing_lists.size %></td>
-    <td><%= email.count %></td>
-    <td><%= link_to 'Edit', edit_email_path(email) %></td>
-    <td><%= link_to 'Destroy', email, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</tbody>
-</table>
+<%= will_filter_tag(@emails) %>
+<%= will_filter_table_tag(@emails, :columns => [
+    :id,
+    :name, 
+    { :key => :emailAddress,
+        :value => lambda{|obj| 
+          link_to(obj.emailAddress, obj) 
+    },:title => "Email Address"}, 
+    :company,
+    :gender,
+      :title, 
+      :first_name,
+      :last_name,
+      :address,
+      :city,
+      :state,
+      :zip,
+    { :key => :count,
+        :value => lambda{|obj| 
+          obj.count
+    },:title => "Times Contacted"}, 
+    { :key => "Destroy",
+        :value => lambda{|obj| 
+          button_to('Destroy', obj, method: :delete, :class => :destroy, data: { confirm: 'Are you sure?' })
+    },:title => "Destroy"}, 
+     [:actions, lambda{ |obj|
+              actions = []
+              actions << link_to('Edit', :action => :edit, :id => obj.id)   
+              actions.join(' | ').html_safe
+          }, 'padding:3px;width:150px;padding-left:10px;']
+    ] )%>
+
 
 </p>
 <br />

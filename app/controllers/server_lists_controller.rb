@@ -4,7 +4,8 @@
 class ServerListsController < ApplicationController
 	def show
    	 @server_list = ServerList.find(params[:id])
-
+     @servers = @server_list.servers.filter(:params => params)
+     @server_all = Server.filter(:params => params)
    	 respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @server_list }
@@ -20,7 +21,7 @@ class ServerListsController < ApplicationController
   	end
 
   	def index
-    	@server_lists = ServerList.all
+    	@server_lists = ServerList.filter(:params => params)
 
     	respond_to do |format|
       		format.html # index.html.erb
@@ -74,7 +75,7 @@ class ServerListsController < ApplicationController
 
   def remove_many
       server_list = ServerList.find(params[:server_list_id])
-      server_list.remove_emails(params[:server_ids])
+      server_list.remove_servers(params[:server_ids])
       redirect_to server_list, notice: "Servers Removed"
   end
 

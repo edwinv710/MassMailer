@@ -1,28 +1,26 @@
 <h1>Mailing Lists</h1>
 
-<table id="mailing" class="display">
-  <thead>
-     <tr>
-      <th>Name</th>
-      <th>Size</th>
-      <th></th>
-      <th></th>
-    </tr> 
-  </thead>
-  
-<tbody>
-  <% @mailing_lists.each do |mailing_list| %>
-    <tr>
-      <td><%= link_to mailing_list.name, mailing_list%></td>
-      <td><%= mailing_list.emails.size %></td>
-      <td><%= link_to 'Edit', edit_mailing_list_path(mailing_list) %></td>
-      <td><%= link_to 'Destroy', mailing_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</tbody>
-
-
-</table>
+<%= will_filter_tag(@mailing_lists) %>
+<%= will_filter_table_tag(@mailing_lists, :columns => [
+    :id, 
+    {:key => :name,
+      :value => lambda{|obj| 
+          link_to(obj.name, obj) 
+    },:title => "Name"},
+    { :key => :count,
+        :value => lambda{|obj| 
+          obj.emails.size
+    },:title => "Count"},  
+    { :key => "Destroy",
+        :value => lambda{|obj| 
+          button_to('Destroy', obj, method: :delete, :class => :destroy, data: { confirm: 'Are you sure?' })
+    },:title => "Destroy"},
+     [:actions, lambda{ |obj|
+              actions = []
+              actions << link_to('Edit', :action => :edit, :id => obj.id)   
+              actions.join(' | ').html_safe
+          }, 'padding:3px;width:150px;padding-left:10px;']
+    ] )%>
 
 <br />
 

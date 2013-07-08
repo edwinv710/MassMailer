@@ -1,36 +1,46 @@
 <h5>Mass Mail</h5>
 
-<table id="listmail" class="display">
-<thead>
-  <tr>
-    <th>Name</th>
-    <th>Mailing List</th>
-    <th>Message</th>
-    <th>Server List</th>
-    <th>Delivered?</th>
-    <th>Priority</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-</thead>
-
-<tbody>
-  <% @list_mails.each do |list_mail| %>
-    <tr>
-      <td><%= link_to list_mail.name, list_mail %></td>
-      <td><%= link_to MailingList.find(list_mail.mailing_list_id).name, MailingList.find(list_mail.mailing_list_id)  %></td>
-      <td><%= link_to EmailMessage.find(list_mail.message_id).label, EmailMessage.find(list_mail.message_id) %></td>
-      <td><%= link_to ServerList.find(list_mail.server_list_id).name, ServerList.find(list_mail.server_list_id) %></td>
-      <td><%= list_mail.completed %></td>
-      <td><%= list_mail.priority %></td>
-      <td><%= link_to "Send", "#" %>
-      <td><%= link_to 'Edit', edit_list_mail_path(list_mail) %></td>
-      <td><%= link_to 'Destroy', list_mail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-<tbody>
-</table>
+<%= will_filter_tag(@list_mails) %>
+<%= will_filter_table_tag(@list_mails, :columns => [
+    :id, 
+    {:key => :name,
+      :value => lambda{|obj| 
+          link_to(obj.name, obj) 
+    },:title => "Name"},
+    {:key => :mailing_list_id,
+      :value => lambda{|obj| 
+           link_to(MailingList.find(obj.mailing_list_id).name, MailingList.find(obj.mailing_list_id))
+    },:title => "Mailing List"},
+    {:key => :email_message_id,
+      :value => lambda{|obj| 
+           link_to(EmailMessage.find(obj.message_id).label, EmailMessage.find(obj.message_id))
+    },:title => "Message"},
+    {:key => :mailing_list_id,
+      :value => lambda{|obj| 
+           link_to(ServerList.find(obj.server_list_id).name, ServerList.find(obj.server_list_id)) 
+    },:title => "Server ist"},
+    {:key => "Amount Delivered",
+      :value => lambda{|obj| 
+          "#{obj.amount_delivered} / #{obj.total_submissions}"
+    },:title => "Amount Delivered"},
+    { :key => :priority,
+        :value => lambda{|obj| 
+          obj.priority
+    },:title => "Priority"},  
+    { :key => :send,
+        :value => lambda{|obj| 
+          link_to("Send", deliver_list_mail_path(obj))
+    },:title => "Send"},
+    { :key => "Destroy",
+        :value => lambda{|obj| 
+          button_to('Destroy', obj, method: :delete, :class => :destroy, data: { confirm: 'Are you sure?' })
+    },:title => "Destroy"},
+     [:actions, lambda{ |obj|
+              actions = []
+              actions << link_to('Edit', :action => :edit, :id => obj.id)   
+              actions.join(' | ').html_safe
+          }, 'padding:3px;width:150px;padding-left:10px;']
+    ] )%>
 
 <br />
 

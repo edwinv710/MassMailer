@@ -12,25 +12,34 @@ class Server < ActiveRecord::Base
 
   attr_accessible :address, :authentication, :name, :password, 
   	:password_confirmation, :port, :user_name, :server_list_ids,
-  	:server_password, :max_emails, :current_day, :count_day
+  	:server_password, :max_emails, :current_day, :count_day, :host
+
+  validates  :address, :authentication, :name, :password,  
+    :port, :user_name, :server_password, :max_emails, :host, presence: true
+
+  validates :max_emails, numericality: {greater_than_or_equal_to: 0}
+
+
 
   def init
-  	current_day = DateTime.now
-  	count_day = 0
+  	self.current_day = DateTime.now
+  	self.count_day = 0
   end
 
-  def is_active?
+  def isactive?
+    value = true
   	if current_day.to_date === DateTime.now.to_date
   		if count_day < max_emails
-  			true
+  			value = true
   		else
-  			false
+  			value = false
   		end
   	else
-  		current_day = DateTime.now
-  		count_day = 0
-  		true
+  		self.current_day = DateTime.now
+  		self.count_day = 0
+  		value = true
   	end
+    value
   end
 
 

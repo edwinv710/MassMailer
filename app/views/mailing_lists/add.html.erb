@@ -1,0 +1,41 @@
+<h5> Add Emails </h5>
+<br>
+
+<%= will_filter_tag(@emails) %>
+<%= form_tag add_emails_mailing_lists_path do %>
+  <%= hidden_field_tag :list_id, @mailing_list.id %>
+  <%= will_filter_table_tag(@emails, :columns => [
+      :id, 
+      { :key => :emailAddress,
+          :value => lambda{|obj| 
+            link_to(obj.emailAddress, obj) 
+      }}, 
+      :company,
+      :title, 
+      :first_name,
+      :last_name,
+      :address,
+      :city,
+      :state,
+      :zip,
+      { :key => :count,
+          :value => lambda{|obj| 
+            obj.count
+      },:title => "Times Contacted"},  
+      [:add, lambda{ |obj|
+              actions = []  
+              actions << check_box_tag("email_ids[]", obj.id)
+              actions.join(' | ').html_safe
+          },], 
+       [:actions, lambda{ |obj|
+                actions = []
+                actions << link_to('Edit', edit_email_path(obj.id))   
+                actions.join(' | ').html_safe
+            },]
+      ] )%>
+
+    <%= submit_tag "Add Emails" %>
+<% end %>
+
+<%= link_to 'Edit', edit_mailing_list_path(@mailing_list) %> |
+<%= link_to 'Back', @mailing_list%>

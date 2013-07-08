@@ -1,35 +1,32 @@
 <h1>Servers</h1>
 
-<table id="servers" class="display">
+<%= will_filter_tag(@servers) %>
+<%= will_filter_table_tag(@servers, :columns => [
+    :id, 
+    { :key => :user_name,
+        :value => lambda{|obj| 
+          link_to(obj.user_name, obj) 
+    }}, 
+    :address, 
+    :port, 
+    :host, 
+    :authentication,
+    { :key => "Active",
+        :value => lambda{|obj| 
+          obj.isactive?
+    }},  
+    :count_day, 
+    :max_emails,
+    { :key => "Destroy",
+        :value => lambda{|obj| 
+          button_to('Destroy', obj, method: :delete, :class => :destroy, data: { confirm: 'Are you sure?' })
+    },:title => "Destroy"},
+     [:actions, lambda{ |obj|
+              actions = []
+              actions << link_to('Edit', :action => :edit, :id => obj.id)   
+              actions.join(' | ').html_safe
+          }, 'padding:3px;width:150px;padding-left:10px;']
+    ] )%>
 
-<thead>
-    <tr>
-    <th>User name</th>
-    <th>Address</th>
-    <th>Port</th>
-    <th>Authentication</th>
-    <th>Emails Today</th>
-    <th>Emails a Day</th>
-    <th></th>
-    <th></th>
-    </tr>
-</thead>
-<tbody>
-    <% @servers.each do |server| %>
-    <tr>
-        <td><%= link_to(server.user_name, server) %></td>
-        <td><%= server.address %></td>
-        <td><%= server.port %></td>
-        <td><%= server.authentication %></td>
-        <td><%= server.max_emails %></td>
-        <td><%= server.count_day %></td>
-        <td><%= link_to 'Edit', edit_server_path(server) %></td>
-        <td><%= link_to 'Destroy', server, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-    <% end %>
-</tbody>  
-</table>
-
-<br />
 
 <%= link_to 'Add Server', new_server_path %>
