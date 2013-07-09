@@ -12,7 +12,7 @@ class Server < ActiveRecord::Base
 
   attr_accessible :address, :authentication, :name, :password, 
   	:password_confirmation, :port, :user_name, :server_list_ids,
-  	:server_password, :max_emails, :current_day, :count_day, :host
+  	:server_password, :max_emails, :current_day, :count_day, :host, :tls
 
   validates  :authentication, :name,   
     :port, :user_name, :server_password, :max_emails, :host, presence: true

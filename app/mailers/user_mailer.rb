@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
     :user_name            => @server.user_name,
     :password             => @server.server_password,
     :authentication       => @server.authentication,
-    enable_starttls_auto: false
+    :enable_starttls_auto => @server.tls
   	}
 
   	@email = Email.find(email_id)
