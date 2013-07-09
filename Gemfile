@@ -52,6 +52,8 @@ gem "daemons"
 gem 'will_filter'
 gem 'kaminari'
 gem 'mailtrap'
+gem 'roo'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
