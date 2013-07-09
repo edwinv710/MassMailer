@@ -23,12 +23,15 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'zurb-foundation'
-  gem 'simple_form'
-  gem 'jquery-ui-rails'
-  gem 'jquery-datatables-rails'
-  gem 'roo'
 end
+
+gem 'zurb-foundation'
+  
+gem 'jquery-ui-rails'
+gem 'jquery-datatables-rails'
+
+gem 'simple_form'
+gem 'simple_form'
 
 gem "jquery-rails", "2.3.0"
 
