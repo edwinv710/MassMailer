@@ -73,7 +73,7 @@
 	          },], 
 	     [:actions, lambda{ |obj|
 	              actions = []
-	              actions << link_to('Edit', edit_server+path(obj.id)   
+	              actions << link_to('Edit', edit_server_path(obj.id))  
 	              actions.join(' | ').html_safe
 	          }, 'padding:3px;width:150px;padding-left:10px;']
 	    ] )%>

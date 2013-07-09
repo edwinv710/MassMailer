@@ -28,7 +28,7 @@ TODO:
 =end
 
 class EmailSubmission < ActiveRecord::Base
-  attr_accessible :email_id, :email_message_id, :server_id, :isdelivered, :priority, :email, :list_mail_id
+  attr_accessible :email_id, :email_message_id, :server_id, :isdelivered, :priority, :email, :list_mail_id, :visit_count
   has_one :email
   has_one :email_message
   has_one :server
@@ -43,6 +43,10 @@ class EmailSubmission < ActiveRecord::Base
   		self.priority = 5
   	end
 
+  end
+
+  def email_address
+    Email.find(email_id).emailAddress
   end
   
 =begin  
@@ -70,7 +74,12 @@ class EmailSubmission < ActiveRecord::Base
   		if UserMailer.send_email(server, email, message).deliver
 	  		update_attribute(:isdelivered, true)
 	  		server.update_attribute(:count_day, (server.count_day + 1))
-	  		email.update_attribute(:count, (email.count+1))
+        unless email.count.nil?
+	  		 email.update_attribute(:count, (email.count + 1))
+        else
+         email.count = 1
+         email.save  
+        end
 	  		return_value = true
   		end
   	end

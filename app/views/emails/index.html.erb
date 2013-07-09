@@ -21,6 +21,7 @@
         :value => lambda{|obj| 
           obj.count
     },:title => "Times Contacted"}, 
+    :visit_count,
     { :key => "Destroy",
         :value => lambda{|obj| 
           button_to('Destroy', obj, method: :delete, :class => :destroy, data: { confirm: 'Are you sure?' })

@@ -14,7 +14,7 @@
 class Email < ActiveRecord::Base
   has_and_belongs_to_many :mailing_lists
   attr_accessible :emailAddress, :mailing_list_ids, :count, :name, :subscribed, :company, :address, :city, 
-  :state, :zip, :first_name, :last_name, :gender, :title
+  :state, :zip, :first_name, :last_name, :gender, :title, :vist_count
   validates :emailAddress, presence: true
 
   def default_values

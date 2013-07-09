@@ -17,7 +17,7 @@ Database variables:
 
 class ListMail < ActiveRecord::Base
    attr_accessible :completed,:email_submission_ids, :message_id , :mailing_list_id, :server_id, :name, :priority, 
-   	:server_list_id, :email_submissions, :count
+   	:server_list_id, :email_submissions, :count, :total_visit_count
    has_many :email_submissions
    validates :priority, numericality: {:greater_than_or_equal_to => 0}
 

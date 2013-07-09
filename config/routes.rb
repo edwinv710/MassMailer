@@ -1,5 +1,7 @@
 
 MassMailer::Application.routes.draw do
+  get "redirect/direct"
+
 mount WillFilter::Engine => "/will_filter"
   mount Mercury::Engine => '/'
 
@@ -9,6 +11,8 @@ mount WillFilter::Engine => "/will_filter"
       post :add_servers
     end
   end
+
+  resources :redirect, :only => :direct
 
 
   resources :list_mails do

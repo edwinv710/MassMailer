@@ -22,6 +22,7 @@
           :value => lambda{|obj| 
             obj.count
       },:title => "Times Contacted"},  
+      :visit_count,
       [:add, lambda{ |obj|
               actions = []  
               actions << check_box_tag("email_ids[]", obj.id)

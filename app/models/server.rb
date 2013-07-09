@@ -14,7 +14,7 @@ class Server < ActiveRecord::Base
   	:password_confirmation, :port, :user_name, :server_list_ids,
   	:server_password, :max_emails, :current_day, :count_day, :host
 
-  validates  :address, :authentication, :name, :password,  
+  validates  :authentication, :name,   
     :port, :user_name, :server_password, :max_emails, :host, presence: true
 
   validates :max_emails, numericality: {greater_than_or_equal_to: 0}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708011853) do
+ActiveRecord::Schema.define(:version => 20130708192156) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20130708011853) do
     t.integer  "priority"
     t.string   "list_mail_id"
     t.string   "server_list_id"
+    t.integer  "visit_count",      :default => 0
   end
 
   create_table "emails", :force => true do |t|
@@ -108,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20130708011853) do
     t.string   "last_name"
     t.string   "gender"
     t.string   "title"
+    t.integer  "visit_count",  :default => 0
   end
 
   create_table "emails_mailing_lists", :id => false, :force => true do |t|
@@ -126,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20130708011853) do
     t.datetime "updated_at",                             :null => false
     t.string   "email_submission_id"
     t.integer  "count"
+    t.integer  "total_visit_count",   :default => 0
   end
 
   create_table "mailing_lists", :force => true do |t|

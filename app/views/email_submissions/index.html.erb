@@ -3,9 +3,7 @@
 <%= will_filter_tag(@email_submissions) %>
 <%= will_filter_table_tag(@email_submissions, :columns => [
     :id, 
-    { :key => lambda{|obj|  
-          Email.find(obj.email_id).emailAddress
-    },          
+    { :key => :email_address,          
         :value => lambda{|obj| 
           link_to(Email.find(obj.email_id).emailAddress,Email.find(obj.email_id))
     }, :title => "Email Address" }, 
@@ -14,11 +12,13 @@
         :value => lambda{|obj| 
           link_to(EmailMessage.find(obj.email_message_id).label, EmailMessage.find(obj.email_message_id))
     },:title => "Message Name"},  
-    { :key => "Delivered",
+    { :key => :isdelivered,
         :value => lambda{|obj| 
           obj.isdelivered?
     },:title => "Delivered"},  
+
     :priority, 
+    :visit_count,
     { :key => "Destroy",
         :value => lambda{|obj| 
           button_to('Destroy', obj, method: :delete, :class => :destroy, data: { confirm: 'Are you sure?' })
