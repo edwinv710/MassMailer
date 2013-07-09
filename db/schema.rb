@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708192156) do
+ActiveRecord::Schema.define(:version => 20130709194330) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -82,14 +82,14 @@ ActiveRecord::Schema.define(:version => 20130708192156) do
   create_table "email_submissions", :force => true do |t|
     t.string   "email_id"
     t.string   "email_message_id"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
     t.string   "server_id"
-    t.boolean  "isdelivered",      :default => false
+    t.boolean  "isdelivered",                     :default => false
     t.integer  "priority"
-    t.string   "list_mail_id"
+    t.integer  "list_mail_id",     :limit => 255
     t.string   "server_list_id"
-    t.integer  "visit_count",      :default => 0
+    t.integer  "visit_count",                     :default => 0
   end
 
   create_table "emails", :force => true do |t|
