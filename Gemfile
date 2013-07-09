@@ -28,9 +28,7 @@ end
 gem 'zurb-foundation'
   
 gem 'jquery-ui-rails'
-gem 'jquery-datatables-rails'
 
-gem 'simple_form'
 gem 'simple_form'
 
 gem "jquery-rails", "2.3.0"
