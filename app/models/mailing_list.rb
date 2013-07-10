@@ -88,7 +88,7 @@ end
 
   def self.open(file_id)
     file = Attachment.find(file_id)
-    Roo::Csv.new(file.data, nil, :ignore)
+    Roo::Csv.new(file.path, nil, :ignore)
   end
 
   def open_spreadsheet(file)
