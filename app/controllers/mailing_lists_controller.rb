@@ -110,7 +110,7 @@ class MailingListsController < ApplicationController
 
   def import
     mailing_list = MailingList.find(params[:list_id])
-    mailing_list.delay.import(params[:file])
+    MailingList.import(mailing_list.id, params[:file])
     redirect_to mailing_list, notice: "Emails imported."
   end
 
