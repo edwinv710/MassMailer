@@ -16,7 +16,7 @@ class RedirectController < ApplicationController
   	end
 
   	respond_to do |format|
-      format.html { redirect_to "http://www.badcreditbusinessloan.com" }
+      format.html { redirect_to "http://www.badcreditbusinessloans.com" }
       format.json { render json: @email_messages }
     end
   	 
