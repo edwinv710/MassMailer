@@ -6,6 +6,7 @@
 =end
 
 class EmailMessagesController < ApplicationController
+  before_filter :authenticate_user!
   # GET /email_messages
   # GET /email_messages.json
   def index

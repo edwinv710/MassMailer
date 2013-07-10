@@ -20,6 +20,7 @@
         address
 =end
 class EmailsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /emails
   # GET /emails.jsonEmailsDatatable
   def index

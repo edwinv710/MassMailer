@@ -16,6 +16,7 @@
 =end
 
 class MailingListsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /mailing_lists
   # GET /mailing_lists.json
   def index

@@ -6,6 +6,7 @@
 
 
 class ListMailsController < ApplicationController
+before_filter :authenticate_user!
 
   def index
     @list_mails = ListMail.filter(:params => params)

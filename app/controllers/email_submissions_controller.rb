@@ -10,6 +10,7 @@
 
 =end
 class EmailSubmissionsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /email_submissions
   # GET /email_submissions.json
   def index
