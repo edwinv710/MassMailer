@@ -110,7 +110,9 @@ class MailingListsController < ApplicationController
 
   def import
     mailing_list = MailingList.find(params[:list_id])
-    MailingList.import(mailing_list.id, params[:file])
+    file = params[:file]
+    attachment = Attachment.create!(:data => file.read, :filename => file.original_filename, :path => file.path)
+    MailingList.delay.import(mailing_list.id, attachment.id)
     redirect_to mailing_list, notice: "Emails imported."
   end
 

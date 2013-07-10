@@ -20,7 +20,7 @@ require "csv"
 =end
 
 class MailingList < ActiveRecord::Base
-  attr_accessible :name, :description, :email_ids, :active, :emails
+  attr_accessible :name, :description, :email_ids, :active, :emails, :dfile
   has_and_belongs_to_many :emails
     
   validates :name, :description, presence: true 
@@ -52,10 +52,10 @@ class MailingList < ActiveRecord::Base
   end
 
 
-def self.import(id, file)
-  list = MailingList.find(id)
-  spreadsheet = list.open_spreadsheet(file)
-    header = spreadsheet.row(1)
+def self.import(self_id, attachment_id)
+  list = MailingList.find(self_id)
+  spreadsheet = MailingList.open(attachment_id)
+  header = spreadsheet.row(1)
 
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
@@ -86,13 +86,17 @@ end
 
 	#Method: open_spreadsheet
 
+  def self.open(file_id)
+    file = Attachment.find(file_id)
+    Roo::Csv.new(file.path, nil, :ignore)
+  end
 
   def open_spreadsheet(file)
-    case File.extname(file.original_filename)
+    case File.extname(file.filename)
     when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
     when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
     when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
-    else raise "Unknown file type: #{file.original_filename}"
+    else raise "Unknown file type: #{file.filename}"
     end
   end
 
