@@ -54,7 +54,7 @@ class MailingList < ActiveRecord::Base
 
 def self.import(id, file)
   list = MailingList.find(id)
-  spreadsheet = open_spreadsheet(file)
+  spreadsheet = list.open_spreadsheet(file)
     header = spreadsheet.row(1)
 
     (2..spreadsheet.last_row).each do |i|
