@@ -47,7 +47,5 @@ class ServerList < ActiveRecord::Base
       end
     end
   end
-  	
-
 
 end

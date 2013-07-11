@@ -95,4 +95,6 @@ class ServersController < ApplicationController
   def edit
     @server = Server.find(params[:id])
   end
+
+  
 end

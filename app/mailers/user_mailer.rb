@@ -14,7 +14,8 @@ class UserMailer < ActionMailer::Base
     :password             => @server.server_password,
     :authentication       => @server.authentication,
     :enable_starttls_auto => @server.tls
-  	}
+
+    }
 
   	@email = Email.find(email_id)
   	@message = EmailMessage.find(email_message_id)

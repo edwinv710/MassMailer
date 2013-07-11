@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710035449) do
+ActiveRecord::Schema.define(:version => 20130710192259) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -125,6 +125,18 @@ ActiveRecord::Schema.define(:version => 20130710035449) do
     t.integer "mailing_list_id"
   end
 
+  create_table "firsts", :force => true do |t|
+    t.string   "firstname"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "lasts", :force => true do |t|
+    t.string   "lastname"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "list_mails", :force => true do |t|
     t.string   "name"
     t.string   "server_list_id"
@@ -145,6 +157,12 @@ ActiveRecord::Schema.define(:version => 20130710035449) do
     t.datetime "updated_at",  :null => false
     t.string   "description"
     t.boolean  "active"
+  end
+
+  create_table "names", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "owners", :force => true do |t|

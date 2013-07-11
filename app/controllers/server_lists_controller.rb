@@ -86,6 +86,4 @@ class ServerListsController < ApplicationController
     redirect_to server_list, notice: "Servers Added"
   end
 
-
-
 end
