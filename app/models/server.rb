@@ -4,7 +4,6 @@
 =end
 
 class Server < ActiveRecord::Base
-  before_save :init
 
   has_secure_password
 
