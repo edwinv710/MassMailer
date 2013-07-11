@@ -73,14 +73,14 @@ class EmailSubmission < ActiveRecord::Base
   	if server.isactive? == true && email.subscribed == true
   		if UserMailer.send_email(server, email, message).deliver
 	  		update_attribute(:isdelivered, true)
-	  		server.update_attribute(:count_day, (server.count_day + 1))
+	  		server.count_day = (server.count_day + 1)
         unless email.count.nil?
 	  		 email.update_attribute(:count, (email.count + 1))
         else
          email.count = 1
          email.save  
-         server.save
         end
+        server.save
 	  		return_value = true
   		end
   	end
