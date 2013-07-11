@@ -79,6 +79,7 @@ class EmailSubmission < ActiveRecord::Base
         else
          email.count = 1
          email.save  
+         server.save
         end
 	  		return_value = true
   		end
