@@ -20,7 +20,7 @@ class UserMailer < ActionMailer::Base
   	@email = Email.find(email_id)
   	@message = EmailMessage.find(email_message_id)
 
-  	mail to: @email.emailAddress, subject: @message.subject, from: "#{@server.username}@gmail.com"
+  	mail to: @email.emailAddress, subject: @message.subject, from: "#{@server.user_name}@gmail.com"
   end
 
 end
