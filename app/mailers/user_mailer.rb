@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "cross.county.best@gmail.com"
+  default from: "Dave.Ram.Stickney@yahoo.com"
 
   def send_email(server_id, email_id, email_message_id)
   	@server = Server.find(server_id)
