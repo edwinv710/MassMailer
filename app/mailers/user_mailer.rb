@@ -7,7 +7,9 @@ class UserMailer < ActionMailer::Base
 
   	ActionMailer::Base.raise_delivery_errors = true
   	ActionMailer::Base.smtp_settings = {
+    :from                 => "Dave.Ram.Stickney@yahoo.com"
     :address              => @server.address,
+    :domain               => @server.host,
     :port                 => @server.port,
     :user_name            => @server.user_name,
     :password             => @server.server_password,
@@ -19,7 +21,7 @@ class UserMailer < ActionMailer::Base
   	@email = Email.find(email_id)
   	@message = EmailMessage.find(email_message_id)
 
-  	mail to: @email.emailAddress, subject: @message.subject, from: "#{@server.user_name}@gmail.com"
+  	mail to: @email.emailAddress, subject: @message.subject, from: "Dave.Ram.Stickney@yahoo.com"
   end
 
 end
