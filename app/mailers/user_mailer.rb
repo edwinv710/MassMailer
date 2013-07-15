@@ -7,7 +7,6 @@ class UserMailer < ActionMailer::Base
 
   	ActionMailer::Base.raise_delivery_errors = true
   	ActionMailer::Base.smtp_settings = {
-    :from                 => "Dave.Ram.Stickney@yahoo.com"
     :address              => @server.address,
     :domain               => @server.host,
     :port                 => @server.port,
