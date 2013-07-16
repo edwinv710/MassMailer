@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "Dave.Ram.Stickney@yahoo.com"
+  default from: "Dave_Ram_Stickney@yahoo.com"
 
   def send_email(server_id, email_id, email_message_id)
   	@server = Server.find(server_id)
@@ -20,7 +20,7 @@ class UserMailer < ActionMailer::Base
   	@email = Email.find(email_id)
   	@message = EmailMessage.find(email_message_id)
 
-  	mail to: @email.emailAddress, subject: @message.subject, from: "Dave.Ram.Stickney@yahoo.com"
+  	mail to: @email.emailAddress, subject: @message.subject, from: "Dave_Ram_Stickney@yahoo.com"
   end
 
 end
