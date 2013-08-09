@@ -10,7 +10,7 @@
 
 =end
 class EmailSubmissionsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :only => [:deliver]
   # GET /email_submissions
   # GET /email_submissions.json
   def index

@@ -1,29 +1,23 @@
-== Welcome to Rails
+== MassMailer
 
-Rails is a web-application framework that includes everything needed to create
-database-backed web applications according to the Model-View-Control pattern.
+MassMailer is an email delivery program that allows users to send emails to a list of clients at a click of a button. 
 
-This pattern splits the view (also called the presentation) into "dumb"
-templates that are primarily responsible for inserting pre-built data in between
-HTML tags. The model contains the "smart" domain objects (such as Account,
-Product, Person, Post) that holds all the business logic and knows how to
-persist themselves to a database. The controller handles the incoming requests
-(such as Save New Account, Update Product, Show Post) by manipulating the model
-and directing data to the view.
+Features Include:
+* Create and manage client lists
+* Import and export client information from a spreadsheet
+* Create and edit emails in a drag-and-drop interface
+* Use multiple smpt servers for better delivery rate
+* Works on most mobile device
 
-In Rails, the model is handled by what's called an object-relational mapping
-layer entitled Active Record. This layer allows you to present the data from
-database rows as objects and embellish these data objects with business logic
-methods. You can read more about Active Record in
-link:files/vendor/rails/activerecord/README.html.
+Todo:
 
-The controller and view are handled by the Action Pack, which handles both
-layers by its two parts: Action View and Action Controller. These two layers
-are bundled in a single package due to their heavy interdependence. This is
-unlike the relationship between the Active Record and Action Pack that is much
-more separate. Each of these packages can be used independently outside of
-Rails. You can read more about Action Pack in
-link:files/vendor/rails/actionpack/README.html.
+* Rewrite the table engine. I currently use excelent library will_filter but as the application gets more complex I am going to need more control over the information displayed. I belive features should be built to the applications needs and never the other way around.
+* Add the ability to schedule when an email is to be sent.
+* Continue to find ways to improve the aplication :)
+
+Heroku: http://massmailer.herokuapp.com/
+* The version on heroku will most likely not be the most up version. I only upload it to heroku when I want to check if a feature works in production mode. 
+* Information entered in the=is site will be visible by anyone. Security is very basic and I have not checked to see if I there are any holes. Make sure you do not enter any private information.
 
 
 == Getting Started

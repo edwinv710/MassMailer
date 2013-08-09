@@ -2,7 +2,7 @@
 
 
 class ServerListsController < ApplicationController
-  before_filter :authenticate_user!
+
 	def show
    	 @server_list = ServerList.find(params[:id])
      @servers = @server_list.servers.filter(:params => params)

@@ -20,7 +20,6 @@
         address
 =end
 class ServersController < ApplicationController
-  before_filter :authenticate_user!
 	def new
     @server = Server.new
 
