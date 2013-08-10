@@ -13,7 +13,7 @@
   	<!-- Set the viewport width to device width for mobile -->
   	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+  	<title><%= content_for?(:title) ? yield(:title) : "Mass Mailer" %></title>
 
   	<%= stylesheet_link_tag    "application" %>
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
@@ -57,10 +57,9 @@
 
   <body>
   	
-    <div data-alert class="alert-box alert">
+    <div data-alert class="alert-box secondary">
       <br>
-     <p>  <b>WARNING: </b>Any data entered is visible to public. Do not post any private information.  </p>
-    <a href="#" class="close">&times;</a>
+     <p>  <b>WARNING: This is demo!</b>Any data entered is visible to public. Do not post any private information.  </p>
     </div>
 
     <%= yield %>
@@ -68,4 +67,6 @@
     
     <%= javascript_include_tag "application" %>
   </body>
+  <hr>
+  <p>Edwin Velasquez &copy; 2013  </p>
 </html>
